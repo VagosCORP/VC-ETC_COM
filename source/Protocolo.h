@@ -34,7 +34,6 @@ typedef struct {
         char process;
         char pump1;
         char pump2;
-        unsigned char myget;
         long pass;
         long checkSum;
 }SYS_PARAMETERS;
@@ -55,6 +54,7 @@ int sendCont = 0;
 int sendInit = 0;
 int dataCont = 0;
 unsigned char tempGet = 0;
+unsigned char betaGet = 0;
 unsigned char applyGet[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char itemCont = 0;
 char floatCont = 0;
@@ -206,8 +206,7 @@ void sendData(void) {
 char interprete(DATA_ITEM item) {
     char res = 1;
     tempGet = 0;
-    newSysParameters.myget = 0;
-    switch(newSysParameters.myget) {
+    switch(item.charD) {
         case(ctemp): {
             newSysParameters.temp = item.valD;
             break;
@@ -278,35 +277,35 @@ char interprete(DATA_ITEM item) {
             break;
         }
         case(cgetSysState): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetSysParameters): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetTempPID): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetQ1PID): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetQ2PID): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetPass): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetVol): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         case(cgetOnOff): {
-            newSysParameters.myget = item.charD;
+            tempGet = item.charD;
             break;
         }
         default: {
@@ -334,9 +333,9 @@ void rcvProtocol(char plec) {
                 if(checkSum == newSysParameters.checkSum) {
                     sysParameters = newSysParameters;//updateVars();
                     sendError(0);
-                    if(sysParameters.myget != 0) {
+                    if(betaGet != 0) {
                         sendCont++;
-                        applyGet[sendCont] = sysParameters.myget;
+                        applyGet[sendCont] = betaGet;
                         sendDataEN = 1;
                     }
                 }else {
@@ -358,8 +357,10 @@ void rcvProtocol(char plec) {
                 dataInit = 0;
                 newSysParameters = sysParameters;
                 sendError(1);
-            }else
+            }else {
                 itemCont = 0;
+                betaGet = tempGet;
+            }
         }else
             itemCont++;
         checkSum += plec;
