@@ -1,9 +1,8 @@
 char PKG_I = 127;//valor de inicio del paqeute de datos
 char PKG_F = 100;//valor de final del paqeute de datos
 
-//#define cgetAll             65
-#define cgetSysState        66
-#define cgetSysParameters   67
+#define cgetActualState     66
+#define cgetDesiredState    67
 #define cgetTempPID         68
 #define cgetQ1PID           69
 #define cgetQ2PID           70

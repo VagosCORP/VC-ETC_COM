@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>VCWTR_COM</name>
+            <name>VC-ETC_COM</name>
             <creation-uuid>22c1229c-d07f-4de9-ba87-88a13780ce72</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

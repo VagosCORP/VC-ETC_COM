@@ -3,18 +3,20 @@
 typedef union {
     struct {
         float valD;
-        char charD;
+        char charD : 8;
     };
     struct {
-        char valDa;//LessSifnificant
-        char valDb;
-        char valDc;
-        char valDd;//MostSignificant
-        char charD;
+        char valDa : 8;//LessSifnificant
+        char valDb : 8;
+        char valDc : 8;
+        char valDd : 8;//MostSignificant
+        char charD : 8;
+//        float valD;
+//        long valDL;
     };
     struct {  
         long valDL;
-        char charD;
+        char charD : 8;
     };
 }DATA_ITEM;
 
@@ -123,7 +125,7 @@ void sendError(char err) {
     putch(0);
     putch(err);
     checksum += err;
-    sendItemL(cChecking,checksum);
+    sendItemL(cChecking, (long)checksum);
     putch(PKG_F);
 }
 
@@ -131,7 +133,7 @@ void sendData(void) {
     if(sendDataEN && sendCont > 0) {
         long checksumVal = 0;
         switch(applyGet[sendCont]) {
-            case(cgetSysState): {
+            case(cgetActualState): {
                 putch(PKG_I);
                 checksumVal += sendItem(ctemp, sysState.temp);
                 checksumVal += sendItem(cq1, sysState.q1);
@@ -140,7 +142,7 @@ void sendData(void) {
                 putch(PKG_F);
                 break;
             }
-            case(cgetSysParameters): {
+            case(cgetDesiredState): {
                 putch(PKG_I);
                 checksumVal += sendItem(ctemp, sysParameters.temp);
                 checksumVal += sendItem(cq1, sysParameters.q1);
@@ -276,11 +278,11 @@ char interprete(DATA_ITEM item) {
             sendDataEN = 1;
             break;
         }
-        case(cgetSysState): {
+        case(cgetActualState): {
             tempGet = item.charD;
             break;
         }
-        case(cgetSysParameters): {
+        case(cgetDesiredState): {
             tempGet = item.charD;
             break;
         }
@@ -326,8 +328,7 @@ void rcvProtocol(char plec) {
         }
     }else {
         if(itemCont == 0) {
-            dataItem.charD = plec;
-            if(dataItem.charD == PKG_F) {
+            if(plec == PKG_F) {
                 dataInit = 0;
                 checkSum -= checkSumM;
                 if(checkSum == newSysParameters.checkSum) {
@@ -342,7 +343,9 @@ void rcvProtocol(char plec) {
                     newSysParameters = sysParameters;
                     sendError(1);
                 }
-            }
+                betaGet = 0;
+            }else
+                dataItem.charD = plec;
         }else if(itemCont == 1)
             dataItem.valDd = plec; //Mayor significancia
         else if(itemCont == 2)
@@ -350,16 +353,17 @@ void rcvProtocol(char plec) {
         else if(itemCont == 3)
             dataItem.valDb = plec;
         else if(itemCont == 4)
-            dataItem.valDa = plec; //Menor significancia
+            dataItem.valDa = plec; //Menor significancia   
         if(itemCont > 3) {
             char cd = interprete(dataItem);
-            if(!cd) {
+            if(cd == 0) {
                 dataInit = 0;
                 newSysParameters = sysParameters;
                 sendError(1);
             }else {
                 itemCont = 0;
-                betaGet = tempGet;
+                if(betaGet == 0)
+                    betaGet = tempGet;
             }
         }else
             itemCont++;

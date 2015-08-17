@@ -72,20 +72,20 @@ Program Memory  [Origin = 0x200, Length = 0x15600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0x9e            0xed  (237)
-.text                        0x29e               0x93e           0xddd  (3549)
-.dinit                       0xbdc                0x10            0x18  (24)
+.text                        0x29e               0x946           0xde9  (3561)
+.dinit                       0xbe4                0x10            0x18  (24)
 
-                     Total program memory used (bytes):          0xee2  (3810) 2%
+                     Total program memory used (bytes):          0xeee  (3822) 2%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0            0xb0  (176)
-.ndata                       0x8b0                   0             0x2  (2)
+.nbss                        0x800                   0            0xb2  (178)
+.ndata                       0x8b2                   0             0x2  (2)
 
-                        Total data memory used (bytes):           0xb2  (178) 2%
+                        Total data memory used (bytes):           0xb4  (180) 2%
 
 
 Dynamic Memory Usage
@@ -93,9 +93,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x8b2                              0x1f4e  (8014)
+stack                        0x8b4                              0x1f4c  (8012)
 
-                        Maximum dynamic memory (bytes):         0x1f4e  (8014)
+                        Maximum dynamic memory (bytes):         0x1f4c  (8012)
 
 
 External Symbols in Data Memory (by address):
@@ -109,31 +109,33 @@ External Symbols in Data Memory (by address):
                     0x088e                  _sendInit
                     0x0890                  _dataCont
                     0x0892                  _tempGet
-                    0x0893                  _applyGet
-                    0x08a4                  _itemCont
-                    0x08a5                  _floatCont
-                    0x08a6                  _dataInit
-                    0x08a7                  _itemInit
-                    0x08a8                  _checkSum
-                    0x08ac                  _checkSumM
-                    0x08ae                  _cont
-                    0x08b0                  _PKG_I
-                    0x08b1                  _PKG_F
+                    0x0893                  _betaGet
+                    0x0894                  _applyGet
+                    0x08a5                  _itemCont
+                    0x08a6                  _floatCont
+                    0x08a7                  _dataInit
+                    0x08a8                  _itemInit
+                    0x08aa                  _checkSum
+                    0x08ae                  _checkSumM
+                    0x08b0                  _cont
+                    0x08b2                  _PKG_I
+                    0x08b3                  _PKG_F
 
 External Symbols in Data Memory (by name):
 
-                    0x08b1                  _PKG_F
-                    0x08b0                  _PKG_I
-                    0x0893                  _applyGet
-                    0x08a8                  _checkSum
-                    0x08ac                  _checkSumM
-                    0x08ae                  _cont
+                    0x08b3                  _PKG_F
+                    0x08b2                  _PKG_I
+                    0x0894                  _applyGet
+                    0x0893                  _betaGet
+                    0x08aa                  _checkSum
+                    0x08ae                  _checkSumM
+                    0x08b0                  _cont
                     0x0890                  _dataCont
-                    0x08a6                  _dataInit
+                    0x08a7                  _dataInit
                     0x0800                  _dataItem
-                    0x08a5                  _floatCont
-                    0x08a4                  _itemCont
-                    0x08a7                  _itemInit
+                    0x08a6                  _floatCont
+                    0x08a5                  _itemCont
+                    0x08a8                  _itemInit
                     0x0806                  _newSysParameters
                     0x088c                  _sendCont
                     0x088a                  _sendDataEN
@@ -151,28 +153,28 @@ External Symbols in Program Memory (by address):
                   0x00029a                  __DefaultInterrupt
                   0x00029e                  _config_clock
                   0x000308                  _send_float
-                  0x00034c                  _send_int32
-                  0x00038c                  _send_int16
-                  0x0003b2                  _send_float_vt
-                  0x0003c6                  _send_int32_vt
-                  0x0003da                  _send_int16_vt
-                  0x0003ee                  _genFloat
-                  0x000410                  _genLong
-                  0x000434                  _genShort
-                  0x00044a                  _initVars
-                  0x0004e2                  _sendItem
-                  0x000506                  _sendItemL
-                  0x00052a                  _sendOnOff
-                  0x00057a                  _sendError
-                  0x0005ba                  _sendData
-                  0x0007f8                  _interprete
-                  0x000996                  _rcvProtocol
-                  0x000aea                  _putch
-                  0x000b02                  __U1RXInterrupt
-                  0x000b26                  _config_uart1
-                  0x000b78                  __T1Interrupt
-                  0x000ba4                  _config_timer1
-                  0x000bd0                  _main
+                  0x000348                  _send_int32
+                  0x000386                  _send_int16
+                  0x0003aa                  _send_float_vt
+                  0x0003be                  _send_int32_vt
+                  0x0003d2                  _send_int16_vt
+                  0x0003e6                  _genFloat
+                  0x000408                  _genLong
+                  0x00042c                  _genShort
+                  0x000442                  _initVars
+                  0x0004da                  _sendItem
+                  0x0004fe                  _sendItemL
+                  0x000522                  _sendOnOff
+                  0x000572                  _sendError
+                  0x0005b2                  _sendData
+                  0x0007f0                  _interprete
+                  0x000984                  _rcvProtocol
+                  0x000af2                  _putch
+                  0x000b0a                  __U1RXInterrupt
+                  0x000b2e                  _config_uart1
+                  0x000b80                  __T1Interrupt
+                  0x000bac                  _config_timer1
+                  0x000bd8                  _main
                   0xf80000                  __FBS.sec
                   0xf80002                  __FSS.sec
                   0xf80004                  __FGS.sec
@@ -183,34 +185,34 @@ External Symbols in Program Memory (by name):
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
                   0xf80002                  __FSS.sec
-                  0x000b78                  __T1Interrupt
-                  0x000b02                  __U1RXInterrupt
+                  0x000b80                  __T1Interrupt
+                  0x000b0a                  __U1RXInterrupt
                   0x00023c                  __data_init
                   0x00023c                  __data_init_standard
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
                   0x00029e                  _config_clock
-                  0x000ba4                  _config_timer1
-                  0x000b26                  _config_uart1
-                  0x0003ee                  _genFloat
-                  0x000410                  _genLong
-                  0x000434                  _genShort
-                  0x00044a                  _initVars
-                  0x0007f8                  _interprete
-                  0x000bd0                  _main
-                  0x000aea                  _putch
-                  0x000996                  _rcvProtocol
-                  0x0005ba                  _sendData
-                  0x00057a                  _sendError
-                  0x0004e2                  _sendItem
-                  0x000506                  _sendItemL
-                  0x00052a                  _sendOnOff
+                  0x000bac                  _config_timer1
+                  0x000b2e                  _config_uart1
+                  0x0003e6                  _genFloat
+                  0x000408                  _genLong
+                  0x00042c                  _genShort
+                  0x000442                  _initVars
+                  0x0007f0                  _interprete
+                  0x000bd8                  _main
+                  0x000af2                  _putch
+                  0x000984                  _rcvProtocol
+                  0x0005b2                  _sendData
+                  0x000572                  _sendError
+                  0x0004da                  _sendItem
+                  0x0004fe                  _sendItemL
+                  0x000522                  _sendOnOff
                   0x000308                  _send_float
-                  0x0003b2                  _send_float_vt
-                  0x00038c                  _send_int16
-                  0x0003da                  _send_int16_vt
-                  0x00034c                  _send_int32
-                  0x0003c6                  _send_int32_vt
+                  0x0003aa                  _send_float_vt
+                  0x000386                  _send_int16
+                  0x0003d2                  _send_int16_vt
+                  0x000348                  _send_int32
+                  0x0003be                  _send_int32_vt
 
 Memory Configuration
 
@@ -335,18 +337,18 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1d97
+.debug_info       0x000000       0x1d99
  *(.debug_info)
- .debug_info      0x000000       0x1d97 build/default/production/source/vc-etc_commain.o
+ .debug_info      0x000000       0x1d99 build/default/production/source/vc-etc_commain.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x258
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x258 build/default/production/source/vc-etc_commain.o
 
-.debug_line       0x000000        0xcee
+.debug_line       0x000000        0xce6
  *(.debug_line)
- .debug_line      0x000000        0xcee build/default/production/source/vc-etc_commain.o
+ .debug_line      0x000000        0xce6 build/default/production/source/vc-etc_commain.o
 
 .debug_frame      0x000000        0x194
  *(.debug_frame)
@@ -363,10 +365,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x273
+                  0x000000        0x27f
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x273 build/default/production/source/vc-etc_commain.o
+                  0x000000        0x27f build/default/production/source/vc-etc_commain.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -388,7 +390,7 @@ __FUID3
                   0x000014          0x4 LONG 0x29a DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x29a DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x29a DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0xb78 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0xb80 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x29a DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -396,7 +398,7 @@ __FUID3
                   0x000024          0x4 LONG 0x29a DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002a          0x4 LONG 0xb02 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0xb0a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0x29a DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002e          0x4 LONG 0x29a DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x29a DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -516,7 +518,7 @@ __FUID3
                   0x000114          0x4 LONG 0x29a DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x29a DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x29a DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0xb78 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0xb80 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x29a DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -524,7 +526,7 @@ __FUID3
                   0x000124          0x4 LONG 0x29a DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012a          0x4 LONG 0xb02 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012a          0x4 LONG 0xb0a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0x29a DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012e          0x4 LONG 0x29a DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x29a DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1362,8 +1364,8 @@ __c30_signature
  __c30_signature
                   0x0001c5          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800         0xb0
- .nbss              0x0800         0xb0 build/default/production/source/vc-etc_commain.o
+.nbss               0x0800         0xb2
+ .nbss              0x0800         0xb2 build/default/production/source/vc-etc_commain.o
                     0x0800                  _dataItem
                     0x0806                  _newSysParameters
                     0x0842                  _sysParameters
@@ -1373,19 +1375,20 @@ __c30_signature
                     0x088e                  _sendInit
                     0x0890                  _dataCont
                     0x0892                  _tempGet
-                    0x0893                  _applyGet
-                    0x08a4                  _itemCont
-                    0x08a5                  _floatCont
-                    0x08a6                  _dataInit
-                    0x08a7                  _itemInit
-                    0x08a8                  _checkSum
-                    0x08ac                  _checkSumM
-                    0x08ae                  _cont
+                    0x0893                  _betaGet
+                    0x0894                  _applyGet
+                    0x08a5                  _itemCont
+                    0x08a6                  _floatCont
+                    0x08a7                  _dataInit
+                    0x08a8                  _itemInit
+                    0x08aa                  _checkSum
+                    0x08ae                  _checkSumM
+                    0x08b0                  _cont
 
-.ndata              0x08b0          0x2
- .ndata             0x08b0          0x2 build/default/production/source/vc-etc_commain.o
-                    0x08b0                  _PKG_I
-                    0x08b1                  _PKG_F
+.ndata              0x08b2          0x2
+ .ndata             0x08b2          0x2 build/default/production/source/vc-etc_commain.o
+                    0x08b2                  _PKG_I
+                    0x08b3                  _PKG_F
 
 .config_JTAGEN    0xf8000e          0x2
  .config_JTAGEN
@@ -1404,32 +1407,32 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/production/source/vc-etc_commain.o
 
-.text             0x00029e        0x93e
- .text            0x00029e        0x93e build/default/production/source/vc-etc_commain.o
+.text             0x00029e        0x946
+ .text            0x00029e        0x946 build/default/production/source/vc-etc_commain.o
                   0x00029e                  _config_clock
                   0x000308                  _send_float
-                  0x00034c                  _send_int32
-                  0x00038c                  _send_int16
-                  0x0003b2                  _send_float_vt
-                  0x0003c6                  _send_int32_vt
-                  0x0003da                  _send_int16_vt
-                  0x0003ee                  _genFloat
-                  0x000410                  _genLong
-                  0x000434                  _genShort
-                  0x00044a                  _initVars
-                  0x0004e2                  _sendItem
-                  0x000506                  _sendItemL
-                  0x00052a                  _sendOnOff
-                  0x00057a                  _sendError
-                  0x0005ba                  _sendData
-                  0x0007f8                  _interprete
-                  0x000996                  _rcvProtocol
-                  0x000aea                  _putch
-                  0x000b02                  __U1RXInterrupt
-                  0x000b26                  _config_uart1
-                  0x000b78                  __T1Interrupt
-                  0x000ba4                  _config_timer1
-                  0x000bd0                  _main
+                  0x000348                  _send_int32
+                  0x000386                  _send_int16
+                  0x0003aa                  _send_float_vt
+                  0x0003be                  _send_int32_vt
+                  0x0003d2                  _send_int16_vt
+                  0x0003e6                  _genFloat
+                  0x000408                  _genLong
+                  0x00042c                  _genShort
+                  0x000442                  _initVars
+                  0x0004da                  _sendItem
+                  0x0004fe                  _sendItemL
+                  0x000522                  _sendOnOff
+                  0x000572                  _sendError
+                  0x0005b2                  _sendData
+                  0x0007f0                  _interprete
+                  0x000984                  _rcvProtocol
+                  0x000af2                  _putch
+                  0x000b0a                  __U1RXInterrupt
+                  0x000b2e                  _config_uart1
+                  0x000b80                  __T1Interrupt
+                  0x000bac                  _config_timer1
+                  0x000bd8                  _main
 
-.dinit            0x000bdc         0x10
- .dinit           0x000bdc         0x10 data_init
+.dinit            0x000be4         0x10
+ .dinit           0x000be4         0x10 data_init

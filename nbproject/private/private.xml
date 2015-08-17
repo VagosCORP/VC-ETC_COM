@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/J:/Documents/MPLABXProjects/VCWTR_COM.X/source/vc_etcmain.c</file>
-            <file>file:/J:/Documents/MPLABXProjects/VCWTR_COM.X/source/Protocolo.h</file>
+            <file>file:/J:/Documents/MPLABXProjects/VC-ETC_COM.X/source/ComandosP.h</file>
+            <file>file:/J:/Documents/MPLABXProjects/VC-ETC_COM.X/source/Protocolo.h</file>
+            <file>file:/J:/Documents/MPLABXProjects/VC-ETC_COM.X/source/vc-etc_commain.c</file>
         </group>
     </open-files>
 </project-private>
