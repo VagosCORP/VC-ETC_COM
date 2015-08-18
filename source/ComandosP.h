@@ -1,6 +1,10 @@
 char PKG_I = 127;//valor de inicio del paqeute de datos
 char PKG_F = 100;//valor de final del paqeute de datos
 
+#define ctempA              62
+#define cq1A                63
+#define cq2A                64
+#define cgetAllData         65
 #define cgetActualState     66
 #define cgetDesiredState    67
 #define cgetTempPID         68

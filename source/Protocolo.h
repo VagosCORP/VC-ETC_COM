@@ -135,9 +135,9 @@ void sendData(void) {
         switch(applyGet[sendCont]) {
             case(cgetActualState): {
                 putch(PKG_I);
-                checksumVal += sendItem(ctemp, sysState.temp);
-                checksumVal += sendItem(cq1, sysState.q1);
-                checksumVal += sendItem(cq2, sysState.q2);
+                checksumVal += sendItem(ctempA, sysState.temp);
+                checksumVal += sendItem(cq1A, sysState.q1);
+                checksumVal += sendItem(cq2A, sysState.q2);
                 sendItemL(cChecking, checksumVal);
                 putch(PKG_F);
                 break;
@@ -192,8 +192,36 @@ void sendData(void) {
                 break;
             }
             case(cgetOnOff): {
-                putch(PKG_I);
                 sendOnOff(sysParameters.process, sysParameters.pump1, sysParameters.pump2);
+                break;
+            }
+            case(cgetAllData): {
+                putch(PKG_I);
+                checksumVal += sendItem(ctempA, sysState.temp);
+                checksumVal += sendItem(cq1A, sysState.q1);
+                checksumVal += sendItem(cq2A, sysState.q2);
+                checksumVal += sendItem(ctemp, sysParameters.temp);
+                checksumVal += sendItem(cq1, sysParameters.q1);
+                checksumVal += sendItem(cq2, sysParameters.q2);
+                checksumVal += sendItem(ctempkP, sysParameters.tempkP);
+                checksumVal += sendItem(ctempkI, sysParameters.tempkI);
+                checksumVal += sendItem(ctempkD, sysParameters.tempkD);
+                checksumVal += sendItem(cq1kP, sysParameters.q1kP);
+                checksumVal += sendItem(cq1kI, sysParameters.q1kI);
+                checksumVal += sendItem(cq1kD, sysParameters.q1kD);
+                checksumVal += sendItem(cq2kP, sysParameters.q2kP);
+                checksumVal += sendItem(cq2kI, sysParameters.q2kI);
+                checksumVal += sendItem(cq2kD, sysParameters.q2kD);
+                putch(cOnOff);
+                checksumVal += cOnOff;
+                putch(0);
+                putch(sysParameters.pump1);
+                checksumVal += sysParameters.pump1;
+                putch(sysParameters.pump2);
+                checksumVal += sysParameters.pump2;
+                putch(sysParameters.process);
+                checksumVal += sysParameters.process;
+                sendItemL(cChecking, checksumVal);
                 putch(PKG_F);
                 break;
             }
@@ -276,6 +304,10 @@ char interprete(DATA_ITEM item) {
             if(!item.valDa)
                 sendCont--;
             sendDataEN = 1;
+            break;
+        }
+        case(cgetAllData): {
+            tempGet = item.charD;
             break;
         }
         case(cgetActualState): {

@@ -72,10 +72,10 @@ Program Memory  [Origin = 0x200, Length = 0x15600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0x9e            0xed  (237)
-.text                        0x29e               0x946           0xde9  (3561)
-.dinit                       0xbe4                0x10            0x18  (24)
+.text                        0x29e               0xab6          0x1011  (4113)
+.dinit                       0xd54                0x10            0x18  (24)
 
-                     Total program memory used (bytes):          0xeee  (3822) 2%
+                     Total program memory used (bytes):         0x1116  (4374) 3%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
@@ -167,14 +167,14 @@ External Symbols in Program Memory (by address):
                   0x000522                  _sendOnOff
                   0x000572                  _sendError
                   0x0005b2                  _sendData
-                  0x0007f0                  _interprete
-                  0x000984                  _rcvProtocol
-                  0x000af2                  _putch
-                  0x000b0a                  __U1RXInterrupt
-                  0x000b2e                  _config_uart1
-                  0x000b80                  __T1Interrupt
-                  0x000bac                  _config_timer1
-                  0x000bd8                  _main
+                  0x000954                  _interprete
+                  0x000af4                  _rcvProtocol
+                  0x000c62                  _putch
+                  0x000c7a                  __U1RXInterrupt
+                  0x000c9e                  _config_uart1
+                  0x000cf0                  __T1Interrupt
+                  0x000d1c                  _config_timer1
+                  0x000d48                  _main
                   0xf80000                  __FBS.sec
                   0xf80002                  __FSS.sec
                   0xf80004                  __FGS.sec
@@ -185,23 +185,23 @@ External Symbols in Program Memory (by name):
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
                   0xf80002                  __FSS.sec
-                  0x000b80                  __T1Interrupt
-                  0x000b0a                  __U1RXInterrupt
+                  0x000cf0                  __T1Interrupt
+                  0x000c7a                  __U1RXInterrupt
                   0x00023c                  __data_init
                   0x00023c                  __data_init_standard
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
                   0x00029e                  _config_clock
-                  0x000bac                  _config_timer1
-                  0x000b2e                  _config_uart1
+                  0x000d1c                  _config_timer1
+                  0x000c9e                  _config_uart1
                   0x0003e6                  _genFloat
                   0x000408                  _genLong
                   0x00042c                  _genShort
                   0x000442                  _initVars
-                  0x0007f0                  _interprete
-                  0x000bd8                  _main
-                  0x000af2                  _putch
-                  0x000984                  _rcvProtocol
+                  0x000954                  _interprete
+                  0x000d48                  _main
+                  0x000c62                  _putch
+                  0x000af4                  _rcvProtocol
                   0x0005b2                  _sendData
                   0x000572                  _sendError
                   0x0004da                  _sendItem
@@ -346,9 +346,9 @@ __FUID3
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x258 build/default/production/source/vc-etc_commain.o
 
-.debug_line       0x000000        0xce6
+.debug_line       0x000000        0xdc9
  *(.debug_line)
- .debug_line      0x000000        0xce6 build/default/production/source/vc-etc_commain.o
+ .debug_line      0x000000        0xdc9 build/default/production/source/vc-etc_commain.o
 
 .debug_frame      0x000000        0x194
  *(.debug_frame)
@@ -390,7 +390,7 @@ __FUID3
                   0x000014          0x4 LONG 0x29a DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x29a DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x29a DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0xb80 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0xcf0 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x29a DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -398,7 +398,7 @@ __FUID3
                   0x000024          0x4 LONG 0x29a DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002a          0x4 LONG 0xb0a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0xc7a DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0x29a DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002e          0x4 LONG 0x29a DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x29a DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -518,7 +518,7 @@ __FUID3
                   0x000114          0x4 LONG 0x29a DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x29a DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x29a DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0xb80 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0xcf0 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x29a DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -526,7 +526,7 @@ __FUID3
                   0x000124          0x4 LONG 0x29a DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012a          0x4 LONG 0xb0a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012a          0x4 LONG 0xc7a DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0x29a DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012e          0x4 LONG 0x29a DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x29a DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1407,8 +1407,8 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/production/source/vc-etc_commain.o
 
-.text             0x00029e        0x946
- .text            0x00029e        0x946 build/default/production/source/vc-etc_commain.o
+.text             0x00029e        0xab6
+ .text            0x00029e        0xab6 build/default/production/source/vc-etc_commain.o
                   0x00029e                  _config_clock
                   0x000308                  _send_float
                   0x000348                  _send_int32
@@ -1425,14 +1425,14 @@ __c30_signature
                   0x000522                  _sendOnOff
                   0x000572                  _sendError
                   0x0005b2                  _sendData
-                  0x0007f0                  _interprete
-                  0x000984                  _rcvProtocol
-                  0x000af2                  _putch
-                  0x000b0a                  __U1RXInterrupt
-                  0x000b2e                  _config_uart1
-                  0x000b80                  __T1Interrupt
-                  0x000bac                  _config_timer1
-                  0x000bd8                  _main
+                  0x000954                  _interprete
+                  0x000af4                  _rcvProtocol
+                  0x000c62                  _putch
+                  0x000c7a                  __U1RXInterrupt
+                  0x000c9e                  _config_uart1
+                  0x000cf0                  __T1Interrupt
+                  0x000d1c                  _config_timer1
+                  0x000d48                  _main
 
-.dinit            0x000be4         0x10
- .dinit           0x000be4         0x10 data_init
+.dinit            0x000d54         0x10
+ .dinit           0x000d54         0x10 data_init
