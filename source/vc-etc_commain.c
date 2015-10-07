@@ -5,13 +5,14 @@
 #include "Timer1Config.h"
 
 int main(void) {
-    config_clock();
     initVars();
+    config_clock();
     config_uart1();
-//    config_timer1();
+    config_timer1();
+//    initVars();
     
     while(1) {
-        sendData();
+        sendDatax();
     }
     return 1;
 }

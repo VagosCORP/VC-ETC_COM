@@ -4,7 +4,9 @@ void putch(char val) {
 }
     
 void __attribute__((__interrupt__, no_auto_psv)) _U1RXInterrupt(void) {
-    rcvProtocol(U1RXREG);
+    char cha = U1RXREG;
+//    putch(cha);
+    rcvProtocol(cha);
     IFS0bits.U1RXIF = 0; // Clear U1RX Interrupt Flag
 }
     

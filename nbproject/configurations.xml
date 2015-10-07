@@ -10,6 +10,7 @@
       <itemPath>source/Timer1Config.h</itemPath>
       <itemPath>source/PeriferialConfig.h</itemPath>
       <itemPath>source/ComandosP.h</itemPath>
+      <itemPath>source/Protocolo_1.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
