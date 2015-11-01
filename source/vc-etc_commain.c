@@ -3,15 +3,18 @@
 #include "Protocolo.h"
 #include "UART1Config.h"
 #include "Timer1Config.h"
+#include "Timer2Config.h"
 
 int main(void) {
-    initVars();
     config_clock();
+    initVars();
     config_uart1();
     config_timer1();
-//    initVars();
+    config_timer2();
     
     while(1) {
+        if(final_send.getGraphData)
+            sendGraphData();
         sendDatax();
     }
     return 1;

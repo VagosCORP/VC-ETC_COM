@@ -8,9 +8,8 @@
       <itemPath>source/Protocolo.h</itemPath>
       <itemPath>source/UART1Config.h</itemPath>
       <itemPath>source/Timer1Config.h</itemPath>
-      <itemPath>source/PeriferialConfig.h</itemPath>
       <itemPath>source/ComandosP.h</itemPath>
-      <itemPath>source/Protocolo_1.h</itemPath>
+      <itemPath>source/Timer2Config.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

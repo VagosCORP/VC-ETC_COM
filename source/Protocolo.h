@@ -6,26 +6,17 @@ typedef union {
     long valDL;
     float valD;
     struct {
-//        unsigned char charD : 8;
         unsigned char valDa : 8;//LessSifnificant
         unsigned char valDb : 8;
         unsigned char valDc : 8;
         unsigned char valDd : 8;//MostSignificant
     };
-//    struct { 
-//        unsigned char       : 8;
-        
-//    };
-//    struct {
-//        unsigned char       : 8;
-        
-//    };
 }DATA_ITEM;
 
 typedef union {
-    unsigned char theGet            : 8;
+    unsigned short theGet           : 9;
     struct {
-    //    unsigned getAllData        : 1;
+        unsigned getGraphData       : 1;
         unsigned getDesiredState    : 1;
         unsigned getTempPID         : 1;
         unsigned getQ1PID           : 1;
@@ -37,7 +28,54 @@ typedef union {
     };
 }TO_SEND;
 
+typedef union {
+    unsigned long processDetails      : 32;
+    struct {
+        unsigned char err0          : 8;
+        unsigned char err1          : 8;
+        unsigned char n1            : 8;
+        unsigned char n             : 8;
+    };
+    struct {
+        unsigned fProcessInterrupted    : 1;
+        unsigned eF1                    : 1;
+        unsigned eF2                    : 1;
+        unsigned eF3                    : 1;
+        unsigned eF4                    : 1;
+        unsigned eF5                    : 1;
+        unsigned eF6                    : 1;
+        unsigned eF7                    : 1;
+        unsigned eF8                    : 1;
+        unsigned eF9                    : 1;
+        unsigned eF10                   : 1;
+        unsigned eF11                   : 1;
+        unsigned eF12                   : 1;
+        unsigned eF13                   : 1;
+        unsigned eF14                   : 1;
+        unsigned eF15                   : 1;
+//        unsigned char n1            : 8;
+//        unsigned char n             : 8;
+    };
+}PROCESS_DETAILS;
+
+typedef union {
+    unsigned long processHour           : 32;
+    struct {
+        unsigned char segundos          : 8;
+        unsigned char minutos           : 8;
+        unsigned char horas             : 8;
+        unsigned char fecha             : 8;
+    };
+}PROCESS_HOUR;
+
 typedef struct {
+        char n;
+        char n1;
+        char n2;
+        char fecha;//
+        char horas;//
+        char minutos;//
+        char segundos;//
         float temp;
         float q1;
         float q2;
@@ -67,9 +105,11 @@ TO_SEND temp_send;
 TO_SEND final_send;
 
 DATA_ITEM dataItem;
-SYS_PARAMETERS newSysParameters = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-SYS_PARAMETERS sysParameters = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+SYS_PARAMETERS newSysParameters =   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+SYS_PARAMETERS sysParameters =      {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 SYS_STATE sysState = {0,0,0};
+PROCESS_HOUR ProcessInit = {0};
+PROCESS_HOUR ProcessEnd =  {0};
 
 char sendDataEN = 0;
 int sendCont = 0;
@@ -89,6 +129,14 @@ void initVars() {
     sysState.temp = 0.0f;//temperatura actual
     sysState.q1 = 0.0f;//caudal actual 1
     sysState.q2 = 0.0f;//caudal actual 2
+    ProcessInit.fecha = 99;
+    ProcessInit.horas = 22;
+    ProcessInit.minutos = 30;
+    ProcessInit.segundos = 25;
+    ProcessEnd.fecha = 99;
+    ProcessEnd.horas = 22;
+    ProcessEnd.minutos = 30;
+    ProcessEnd.segundos = 25;
     sysParameters.pass = 1234567890;
     sysParameters.temp = 35.1f;//temperatura deseada
     sysParameters.q1 = 5.2f;//caudal deseado 1
@@ -124,21 +172,6 @@ short sendItemL(char comando, long longVal) {
     return checksum;
 }
 
-void sendOnOff(char process, char pump1, char pump2) {
-    short checksum = cOnOff;
-    putch(PKG_I);
-    putch(cOnOff);
-    putch(0);
-    putch(pump1);
-    checksum += pump1;
-    putch(pump2);
-    checksum += pump2;
-    putch(process);
-    checksum += process;
-    sendItemL(cChecking,checksum);
-    putch(PKG_F);
-}
-
 void sendError(char err) {
     short checksum = cError;
     putch(PKG_I);
@@ -152,6 +185,300 @@ void sendError(char err) {
     putch(PKG_F);
 }
 
+PROCESS_DETAILS getProcessDetails() {
+    PROCESS_DETAILS res;
+    res.n = 20;
+    res.n1 = 10;
+    res.err1 = 0;
+    res.err0 = 0;
+    res.fProcessInterrupted = 1;//err1:err0 short, pancho da
+    return res;
+}
+
+void saveGItemEEPROM(long item) {
+    
+}
+
+void getEEPROMGraphdata(float * aPointer, int numDat) {
+    int i;
+    for(i = 0; i < numDat; i++)
+        *(aPointer + i) = 19.2f;
+}
+
+void sendGraphData() {
+    long checksumVal = 0;
+    putch(PKG_I);
+    checksumVal += sendItemL(cSummarySendInit, ProcessInit.processHour);
+    PROCESS_DETAILS processD = getProcessDetails();
+    checksumVal += sendItemL(cSummarySendDetails, processD.processDetails);
+    float graphItems[processD.n];
+    float * arrayPointer = (float *) & graphItems;
+    getEEPROMGraphdata(arrayPointer, processD.n);
+    int i;
+    for(i = 0; i < processD.n; i++)
+        checksumVal += sendItem(cSummarySendItem, graphItems[i]);
+    checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.processHour);
+    sendItemL(cChecking, checksumVal);
+    putch(PKG_F);
+}
+
+void sendDatax(void) {
+    if(final_send.theGet != 0) {
+        long checksumVal = 0;
+        putch(PKG_I);
+        if(final_send.getActualState) {
+            checksumVal += sendItem(ctempA, sysState.temp);
+            checksumVal += sendItem(cq1A, sysState.q1);
+            checksumVal += sendItem(cq2A, sysState.q2);
+            final_send.getActualState = 0;
+        }
+        if(final_send.getDesiredState) {
+            checksumVal += sendItem(ctemp, sysParameters.temp);
+            checksumVal += sendItem(cq1, sysParameters.q1);
+            checksumVal += sendItem(cq2, sysParameters.q2);
+            final_send.getDesiredState = 0;
+        }
+        if(final_send.getTempPID) {
+            checksumVal += sendItem(ctempkP, sysParameters.tempkP);
+            checksumVal += sendItem(ctempkI, sysParameters.tempkI);
+            checksumVal += sendItem(ctempkD, sysParameters.tempkD);
+            final_send.getTempPID = 0;
+        }
+        if(final_send.getQ1PID) {
+            checksumVal += sendItem(cq1kP, sysParameters.q1kP);
+            checksumVal += sendItem(cq1kI, sysParameters.q1kI);
+            checksumVal += sendItem(cq1kD, sysParameters.q1kD);
+            final_send.getQ1PID = 0;
+        }
+        if(final_send.getQ2PID) {
+            checksumVal += sendItem(cq2kP, sysParameters.q2kP);
+            checksumVal += sendItem(cq2kI, sysParameters.q2kI);
+            checksumVal += sendItem(cq2kD, sysParameters.q2kD);
+            final_send.getQ2PID = 0;
+        }
+        if(final_send.getPass) {
+            checksumVal += sendItemL(cPass, sysParameters.pass);
+            final_send.getPass  = 0;
+        }
+        if(final_send.getVol) {
+
+            final_send.getVol = 0;
+        }
+        if(final_send.getOnOff) { //sendOnOff(sysParameters.process, sysParameters.pump1, sysParameters.pump2);
+            DATA_ITEM sysOnOff;
+            sysOnOff.valDd = 0;
+            sysOnOff.valDc = sysParameters.pump1;
+            sysOnOff.valDb = sysParameters.pump2;
+            sysOnOff.valDa = sysParameters.process;
+            checksumVal += sendItemL(cOnOff, sysOnOff.valDL);
+            /*putch(cOnOff); //sin usar estructura
+            checksumVal += cOnOff;
+            putch(0);
+            putch(sysParameters.pump1);
+            checksumVal += sysParameters.pump1;
+            putch(sysParameters.pump2);
+            checksumVal += sysParameters.pump2;
+            putch(sysParameters.process);
+            checksumVal += sysParameters.process;*/
+            final_send.getOnOff = 0;
+        }
+        sendItemL(cChecking, checksumVal);
+        putch(PKG_F);
+    }
+}
+
+char interprete(unsigned char charDx, DATA_ITEM item) {
+    char res = 1;
+    tempGet = 0;
+    switch(charDx) {
+        case(ctemp): {
+            newSysParameters.temp = item.valD;
+            break;
+        }
+        case(cq1): {
+            newSysParameters.q1 = item.valD;
+            break;
+        }
+        case(cq2): {
+            newSysParameters.q2 = item.valD;
+            break;
+        }
+        case(ctempkP): {
+            newSysParameters.tempkP = item.valD;
+            break;
+        }
+        case(ctempkI): {
+            newSysParameters.tempkI = item.valD;
+            break;
+        }
+        case(ctempkD): {
+            newSysParameters.tempkD = item.valD;
+            break;
+        }
+        case(cq1kP): {
+            newSysParameters.q1kP = item.valD;
+            break;
+        }
+        case(cq1kI): {
+            newSysParameters.q1kI = item.valD;
+            break;
+        }
+        case(cq1kD): {
+            newSysParameters.q1kD = item.valD;
+            break;
+        }
+        case(cq2kP): {
+            newSysParameters.q2kP = item.valD;
+            break;
+        }
+        case(cq2kI): {
+            newSysParameters.q2kI = item.valD;
+            break;
+        }
+        case(cq2kD): {
+            newSysParameters.q2kD = item.valD;
+            break;
+        }
+        case(cPass): {
+            newSysParameters.pass = item.valDL;
+            break;
+        }
+        case(cHourA): {
+            //apagar int timer
+            newSysParameters.fecha = item.valDd;
+            newSysParameters.horas = item.valDc;
+            newSysParameters.minutos = item.valDb;
+            newSysParameters.segundos = item.valDa;
+            //reencender int timer
+            break;
+        }
+        case(cOnOff): {
+            newSysParameters.pump1 = item.valDc;
+            newSysParameters.pump2 = item.valDb;
+            newSysParameters.process = item.valDa;
+            break;
+        }
+        case(cChecking): {
+            newSysParameters.checkSum = item.valDL;
+            checkSumM = (short)charDx + item.valDa + item.valDb + item.valDc + item.valDd;
+            break;
+        }
+        case(cError): {
+            if(item.valDa == errSendGraph)
+                final_send.getGraphData = 1;
+            else if(item.valDa != errNone) {
+                temp_send.getDesiredState = 1;
+                temp_send.getTempPID = 1;
+                temp_send.getQ1PID = 1;
+                temp_send.getQ2PID = 1;
+                temp_send.getOnOff = 1;
+            }
+            break;
+        }
+        case(cgetAllData): {
+            temp_send.getDesiredState = 1;
+            temp_send.getTempPID = 1;
+            temp_send.getQ1PID = 1;
+            temp_send.getQ2PID = 1;
+            temp_send.getOnOff = 1;
+            break;
+        }
+        case(cgetDesiredState): {
+            temp_send.getDesiredState = 1;
+            break;
+        }
+        case(cgetTempPID): {
+            temp_send.getTempPID = 1;
+            break;
+        }
+        case(cgetQ1PID): {
+            temp_send.getQ1PID = 1;//tempGet = charDx;
+            break;
+        }
+        case(cgetQ2PID): {
+            temp_send.getQ2PID = 1;
+            break;
+        }
+        case(cgetPass): {
+            temp_send.getPass = 1;
+            break;
+        }
+        case(cgetVol): {
+            temp_send.getVol = 1;
+            break;
+        }
+        case(cgetOnOff): {
+            temp_send.getOnOff = 1;
+            break;
+        }
+        default: {
+            res = 0;
+        }
+    }
+    return res;
+}
+
+void rcvProtocol(unsigned char plec) {
+    if(dataInit == 0) {
+        if(plec == PKG_I) {
+            dataInit = 1;
+            dataCont = 0;
+            itemCont = 0;
+            checkSum = 0;
+            checkSumM = 0;
+        }
+    }else {
+        if(itemCont == 0) {
+            if(plec == PKG_F) {
+                dataInit = 0;
+                checkSum -= checkSumM;
+                if(checkSum == newSysParameters.checkSum) {
+                    if(temp_send.theGet != 0) {
+//                        sendCont++;
+//                        applyGet[sendCont] = betaGet;
+//                        sendDataEN = 1;
+                        final_send = temp_send;
+                        temp_send.theGet = 0;
+                    }else {
+                        sysParameters = newSysParameters;
+                        sendError(errNone);
+                    }
+                }else {
+                    newSysParameters = sysParameters;
+                    sendError(errCheckSum);
+                }
+                betaGet = 0;
+            }else {
+                charD = plec;
+//                putch(charD);
+            }
+        }else if(itemCont == 1) {
+            dataItem.valDd = plec; //Mayor significancia
+        }else if(itemCont == 2) {
+            dataItem.valDc = plec;
+        }else if(itemCont == 3) {
+            dataItem.valDb = plec;
+        }else if(itemCont == 4) {
+            dataItem.valDa = plec; //Menor significancia
+        }
+        if(itemCont > 3) {
+            char cd = interprete(charD, dataItem);
+            if(cd == 0) {
+                dataInit = 0;
+                newSysParameters = sysParameters;
+                sendError(errCommunic);
+            }else {
+                itemCont = 0;
+                if(betaGet == 0)
+                    betaGet = tempGet;
+            }
+        }else {
+            itemCont++;
+        }
+        checkSum += plec;
+        dataCont++;
+    }
+    
 //void sendData(void) {
 //    if(sendDataEN && sendCont > 0) {
 //        long checksumVal = 0;
@@ -255,250 +582,5 @@ void sendError(char err) {
 //        sendDataEN = 0;
 //    }
 //}
-
-void sendDatax(void) {
-    if(final_send.theGet != 0) {
-        long checksumVal = 0;
-        putch(PKG_I);
-        if(final_send.getActualState) {
-            checksumVal += sendItem(ctempA, sysState.temp);
-            checksumVal += sendItem(cq1A, sysState.q1);
-            checksumVal += sendItem(cq2A, sysState.q2);
-            final_send.getActualState = 0;
-        }
-        if(final_send.getDesiredState) {
-            checksumVal += sendItem(ctemp, sysParameters.temp);
-            checksumVal += sendItem(cq1, sysParameters.q1);
-            checksumVal += sendItem(cq2, sysParameters.q2);
-            final_send.getDesiredState = 0;
-        }
-        if(final_send.getTempPID) {
-            checksumVal += sendItem(ctempkP, sysParameters.tempkP);
-            checksumVal += sendItem(ctempkI, sysParameters.tempkI);
-            checksumVal += sendItem(ctempkD, sysParameters.tempkD);
-            final_send.getTempPID = 0;
-        }
-        if(final_send.getQ1PID) {
-            checksumVal += sendItem(cq1kP, sysParameters.q1kP);
-            checksumVal += sendItem(cq1kI, sysParameters.q1kI);
-            checksumVal += sendItem(cq1kD, sysParameters.q1kD);
-            final_send.getQ1PID = 0;
-        }
-        if(final_send.getQ2PID) {
-            checksumVal += sendItem(cq2kP, sysParameters.q2kP);
-            checksumVal += sendItem(cq2kI, sysParameters.q2kI);
-            checksumVal += sendItem(cq2kD, sysParameters.q2kD);
-            final_send.getQ2PID = 0;
-        }
-        if(final_send.getPass) {
-            checksumVal += sendItemL(cPass, sysParameters.pass);
-            final_send.getPass  = 0;
-        }
-        if(final_send.getVol) {
-
-            final_send.getVol = 0;
-        }
-        if(final_send.getOnOff) { //sendOnOff(sysParameters.process, sysParameters.pump1, sysParameters.pump2);
-            putch(cOnOff);
-            checksumVal += cOnOff;
-            putch(0);
-            putch(sysParameters.pump1);
-            checksumVal += sysParameters.pump1;
-            putch(sysParameters.pump2);
-            checksumVal += sysParameters.pump2;
-            putch(sysParameters.process);
-            checksumVal += sysParameters.process;
-            final_send.getOnOff = 0;
-        }
-        sendItemL(cChecking, checksumVal);
-        putch(PKG_F);
-    }
-}
-
-char interprete(unsigned char charDx, DATA_ITEM item) {
-    char res = 1;
-    tempGet = 0;
-    switch(charDx) {
-        case(ctemp): {
-            newSysParameters.temp = item.valD;
-            break;
-        }
-        case(cq1): {
-            newSysParameters.q1 = item.valD;
-            break;
-        }
-        case(cq2): {
-            newSysParameters.q2 = item.valD;
-            break;
-        }
-        case(ctempkP): {
-            newSysParameters.tempkP = item.valD;
-            break;
-        }
-        case(ctempkI): {
-            newSysParameters.tempkI = item.valD;
-            break;
-        }
-        case(ctempkD): {
-            newSysParameters.tempkD = item.valD;
-            break;
-        }
-        case(cq1kP): {
-            newSysParameters.q1kP = item.valD;
-            break;
-        }
-        case(cq1kI): {
-            newSysParameters.q1kI = item.valD;
-            break;
-        }
-        case(cq1kD): {
-            newSysParameters.q1kD = item.valD;
-            break;
-        }
-        case(cq2kP): {
-            newSysParameters.q2kP = item.valD;
-            break;
-        }
-        case(cq2kI): {
-            newSysParameters.q2kI = item.valD;
-            break;
-        }
-        case(cq2kD): {
-            newSysParameters.q2kD = item.valD;
-            break;
-        }
-        case(cPass): {
-            newSysParameters.pass = item.valDL;
-            break;
-        }
-        case(cOnOff): {
-            newSysParameters.pump1 = item.valDc;
-            newSysParameters.pump2 = item.valDb;
-            newSysParameters.process = item.valDa;
-            break;
-        }
-        case(cChecking): {
-            newSysParameters.checkSum = item.valDL;
-            checkSumM = (short)charDx + item.valDa + item.valDb + item.valDc + item.valDd;
-            break;
-        }
-        case(cError): {
-            if(item.valDa != 0) {
-                temp_send.getDesiredState = 1;
-                temp_send.getTempPID = 1;
-                temp_send.getQ1PID = 1;
-                temp_send.getQ2PID = 1;
-                temp_send.getOnOff = 1;
-//                sendCont--;
-            }        
-//            sendDataEN = 1;
-            break;
-        }
-        case(cgetAllData): {
-            temp_send.getDesiredState = 1;
-            temp_send.getTempPID = 1;
-            temp_send.getQ1PID = 1;
-            temp_send.getQ2PID = 1;
-            temp_send.getOnOff = 1;
-            break;
-        }
-//        case(cgetActualState): {
-//            temp_send.getActualState = 1;
-//            break;
-//        }
-        case(cgetDesiredState): {
-            temp_send.getDesiredState = 1;
-            break;
-        }
-        case(cgetTempPID): {
-            temp_send.getTempPID = 1;
-            break;
-        }
-        case(cgetQ1PID): {
-            temp_send.getQ1PID = 1;//tempGet = charDx;
-            break;
-        }
-        case(cgetQ2PID): {
-            temp_send.getQ2PID = 1;
-            break;
-        }
-        case(cgetPass): {
-            temp_send.getPass = 1;
-            break;
-        }
-        case(cgetVol): {
-            temp_send.getVol = 1;
-            break;
-        }
-        case(cgetOnOff): {
-            temp_send.getOnOff = 1;
-            break;
-        }
-        default: {
-            res = 0;
-        }
-    }
-    return res;
-}
-
-void rcvProtocol(unsigned char plec) {
-    if(dataInit == 0) {
-        if(plec == PKG_I) {
-            dataInit = 1;
-            dataCont = 0;
-            itemCont = 0;
-            checkSum = 0;
-            checkSumM = 0;
-        }
-    }else {
-        if(itemCont == 0) {
-            if(plec == PKG_F) {
-                dataInit = 0;
-                checkSum -= checkSumM;
-                if(checkSum == newSysParameters.checkSum) {
-                    if(temp_send.theGet != 0) {
-//                        sendCont++;
-//                        applyGet[sendCont] = betaGet;
-//                        sendDataEN = 1;
-                        final_send = temp_send;
-                        temp_send.theGet = 0;
-                    }else {
-                        sysParameters = newSysParameters;
-                        sendError(0);
-                    }
-                }else {
-                    newSysParameters = sysParameters;
-                    sendError(2);
-                }
-                betaGet = 0;
-            }else {
-                charD = plec;
-//                putch(charD);
-            }
-        }else if(itemCont == 1) {
-            dataItem.valDd = plec; //Mayor significancia
-        }else if(itemCont == 2) {
-            dataItem.valDc = plec;
-        }else if(itemCont == 3) {
-            dataItem.valDb = plec;
-        }else if(itemCont == 4) {
-            dataItem.valDa = plec; //Menor significancia
-        }
-        if(itemCont > 3) {
-            char cd = interprete(charD, dataItem);
-            if(cd == 0) {
-                dataInit = 0;
-                newSysParameters = sysParameters;
-                sendError(1);
-            }else {
-                itemCont = 0;
-                if(betaGet == 0)
-                    betaGet = tempGet;
-            }
-        }else {
-            itemCont++;
-        }
-        checkSum += plec;
-        dataCont++;
-    }
+    
 }

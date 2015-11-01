@@ -1,10 +1,10 @@
-char cont = 0;
+char contTim1 = 0;
     
 void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void) {
-    cont++;
-    if(cont > 10) {//2s
+    contTim1++;
+    if(contTim1 > 10) {//2s
         final_send.getActualState = 1;
-        cont = 0;
+        contTim1 = 0;
     }
     IFS0bits.T1IF = 0; // Clear Timer1 Interrupt Flag}
 }
