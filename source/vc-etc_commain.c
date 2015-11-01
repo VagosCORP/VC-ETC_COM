@@ -1,9 +1,10 @@
 #include "SYSconfig.h"
 #include "../../Comunic.h"
 #include "Protocolo.h"
+#include "InitialSysPar.h"
 #include "UART1Config.h"
-#include "Timer1Config.h"
-#include "Timer2Config.h"
+#include "Timer1Config.h"//send actual state
+#include "Timer2Config.h"//"clock"'n save item to eeprom
 
 int main(void) {
     config_clock();

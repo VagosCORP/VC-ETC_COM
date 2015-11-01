@@ -1,115 +1,17 @@
-#include "ComandosP.h"
-
-unsigned char charD = 0;
-
-typedef union {
-    long valDL;
-    float valD;
-    struct {
-        unsigned char valDa : 8;//LessSifnificant
-        unsigned char valDb : 8;
-        unsigned char valDc : 8;
-        unsigned char valDd : 8;//MostSignificant
-    };
-}DATA_ITEM;
-
-typedef union {
-    unsigned short theGet           : 9;
-    struct {
-        unsigned getGraphData       : 1;
-        unsigned getDesiredState    : 1;
-        unsigned getTempPID         : 1;
-        unsigned getQ1PID           : 1;
-        unsigned getQ2PID           : 1;
-        unsigned getOnOff           : 1;
-        unsigned getActualState     : 1;
-        unsigned getVol             : 1;
-        unsigned getPass            : 1;
-    };
-}TO_SEND;
-
-typedef union {
-    unsigned long processDetails      : 32;
-    struct {
-        unsigned char err0          : 8;
-        unsigned char err1          : 8;
-        unsigned char n1            : 8;
-        unsigned char n             : 8;
-    };
-    struct {
-        unsigned fProcessInterrupted    : 1;
-        unsigned eF1                    : 1;
-        unsigned eF2                    : 1;
-        unsigned eF3                    : 1;
-        unsigned eF4                    : 1;
-        unsigned eF5                    : 1;
-        unsigned eF6                    : 1;
-        unsigned eF7                    : 1;
-        unsigned eF8                    : 1;
-        unsigned eF9                    : 1;
-        unsigned eF10                   : 1;
-        unsigned eF11                   : 1;
-        unsigned eF12                   : 1;
-        unsigned eF13                   : 1;
-        unsigned eF14                   : 1;
-        unsigned eF15                   : 1;
-//        unsigned char n1            : 8;
-//        unsigned char n             : 8;
-    };
-}PROCESS_DETAILS;
-
-typedef union {
-    unsigned long processHour           : 32;
-    struct {
-        unsigned char segundos          : 8;
-        unsigned char minutos           : 8;
-        unsigned char horas             : 8;
-        unsigned char fecha             : 8;
-    };
-}PROCESS_HOUR;
-
-typedef struct {
-        char n;
-        char n1;
-        char n2;
-        char fecha;//
-        char horas;//
-        char minutos;//
-        char segundos;//
-        float temp;
-        float q1;
-        float q2;
-        float tempkP;
-        float tempkI;
-        float tempkD;
-        float q1kP;
-        float q1kI;
-        float q1kD;
-        float q2kP;
-        float q2kI;
-        float q2kD;
-        unsigned char process;
-        unsigned char pump1;
-        unsigned char pump2;
-        unsigned long pass;
-        long checkSum;
-}SYS_PARAMETERS;
-
-typedef struct {
-    float temp;
-    float q1;
-    float q2;
-}SYS_STATE;
+#include "ProtocolRes.h"
 
 TO_SEND temp_send;
 TO_SEND final_send;
 
 DATA_ITEM dataItem;
-SYS_PARAMETERS newSysParameters =   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-SYS_PARAMETERS sysParameters =      {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+SYS_PARAMETERS newSysParameters =   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+SYS_PARAMETERS sysParameters =      {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 SYS_STATE sysState = {0,0,0};
-PROCESS_HOUR ProcessInit = {0};
-PROCESS_HOUR ProcessEnd =  {0};
+THE_TIME ActualTime =   {0};
+THE_TIME valDeltaT =    {0};//jejeje
+THE_TIME deltaTdes =    {0};
+THE_TIME ProcessInit =  {0};
+THE_TIME ProcessEnd =   {0};
 
 char sendDataEN = 0;
 int sendCont = 0;
@@ -117,46 +19,12 @@ int sendInit = 0;
 int dataCont = 0;
 unsigned char tempGet = 0;
 unsigned char betaGet = 0;
-//unsigned char applyGet[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char itemCont = 0;
 char floatCont = 0;
 char dataInit = 0;
 char itemInit = 0;
 long checkSum = 0;
 long checkSumM = 0;
-
-void initVars() {
-    sysState.temp = 0.0f;//temperatura actual
-    sysState.q1 = 0.0f;//caudal actual 1
-    sysState.q2 = 0.0f;//caudal actual 2
-    ProcessInit.fecha = 99;
-    ProcessInit.horas = 22;
-    ProcessInit.minutos = 30;
-    ProcessInit.segundos = 25;
-    ProcessEnd.fecha = 99;
-    ProcessEnd.horas = 22;
-    ProcessEnd.minutos = 30;
-    ProcessEnd.segundos = 25;
-    sysParameters.pass = 1234567890;
-    sysParameters.temp = 35.1f;//temperatura deseada
-    sysParameters.q1 = 5.2f;//caudal deseado 1
-    sysParameters.q2 = 5.1f;//caudal deseado 2
-    sysParameters.tempkP = 2000.00f;//constante proporcional
-    sysParameters.tempkI = 8.0f;//constante integral
-    sysParameters.tempkD = 2.00f;//constante derivativa
-    sysParameters.q1kP = 120.00f;//constante proporcional
-    sysParameters.q1kI = 12.0f;//constante integral
-    sysParameters.q1kD = 0.40f;//constante derivativa
-    sysParameters.q2kP = 120.00f;//constante proporcional
-    sysParameters.q2kI = 12.0f;//constante integral
-    sysParameters.q2kD = 0.46f;//constante derivativa
-    sysParameters.process = 0;
-    sysParameters.pump1 = 0;
-    sysParameters.pump2 = 0;
-    temp_send.theGet = 0;
-    final_send.theGet = 0;
-    newSysParameters = sysParameters;
-}
 
 short sendItem(char comando, float floatVal) {
     short checksum = comando; 
@@ -208,7 +76,7 @@ void getEEPROMGraphdata(float * aPointer, int numDat) {
 void sendGraphData() {
     long checksumVal = 0;
     putch(PKG_I);
-    checksumVal += sendItemL(cSummarySendInit, ProcessInit.processHour);
+    checksumVal += sendItemL(cSummarySendInit, ProcessInit.theTime);
     PROCESS_DETAILS processD = getProcessDetails();
     checksumVal += sendItemL(cSummarySendDetails, processD.processDetails);
     float graphItems[processD.n];
@@ -217,7 +85,7 @@ void sendGraphData() {
     int i;
     for(i = 0; i < processD.n; i++)
         checksumVal += sendItem(cSummarySendItem, graphItems[i]);
-    checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.processHour);
+    checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.theTime);
     sendItemL(cChecking, checksumVal);
     putch(PKG_F);
 }
@@ -264,7 +132,7 @@ void sendDatax(void) {
 
             final_send.getVol = 0;
         }
-        if(final_send.getOnOff) { //sendOnOff(sysParameters.process, sysParameters.pump1, sysParameters.pump2);
+        if(final_send.getOnOff) {
             DATA_ITEM sysOnOff;
             sysOnOff.valDd = 0;
             sysOnOff.valDc = sysParameters.pump1;
@@ -344,12 +212,11 @@ char interprete(unsigned char charDx, DATA_ITEM item) {
             break;
         }
         case(cHourA): {
-            //apagar int timer
             newSysParameters.fecha = item.valDd;
             newSysParameters.horas = item.valDc;
             newSysParameters.minutos = item.valDb;
             newSysParameters.segundos = item.valDa;
-            //reencender int timer
+            newSysParameters.syncTime = 1;
             break;
         }
         case(cOnOff): {
@@ -365,7 +232,7 @@ char interprete(unsigned char charDx, DATA_ITEM item) {
         }
         case(cError): {
             if(item.valDa == errSendGraph)
-                final_send.getGraphData = 1;
+                final_send.getGraphData = 1;//auto reintentar ó preguntar usuario?
             else if(item.valDa != errNone) {
                 temp_send.getDesiredState = 1;
                 temp_send.getTempPID = 1;
@@ -434,13 +301,18 @@ void rcvProtocol(unsigned char plec) {
                 checkSum -= checkSumM;
                 if(checkSum == newSysParameters.checkSum) {
                     if(temp_send.theGet != 0) {
-//                        sendCont++;
-//                        applyGet[sendCont] = betaGet;
-//                        sendDataEN = 1;
                         final_send = temp_send;
                         temp_send.theGet = 0;
                     }else {
+                        if(!sysParameters.process && newSysParameters.process) {
+                            valDeltaT.theTime = 0;
+                            //startProcess (if updating 'process' flag is not enought)
+                        }
                         sysParameters = newSysParameters;
+                        if(sysParameters.syncTime) {
+                            sysParameters.syncTime = 0;
+                            updateTime();
+                        }
                         sendError(errNone);
                     }
                 }else {
@@ -477,110 +349,5 @@ void rcvProtocol(unsigned char plec) {
         }
         checkSum += plec;
         dataCont++;
-    }
-    
-//void sendData(void) {
-//    if(sendDataEN && sendCont > 0) {
-//        long checksumVal = 0;
-//        switch(applyGet[sendCont]) {
-//            case(cgetActualState): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(ctempA, sysState.temp);
-//                checksumVal += sendItem(cq1A, sysState.q1);
-//                checksumVal += sendItem(cq2A, sysState.q2);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetDesiredState): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(ctemp, sysParameters.temp);
-//                checksumVal += sendItem(cq1, sysParameters.q1);
-//                checksumVal += sendItem(cq2, sysParameters.q2);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetTempPID): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(ctempkP, sysParameters.tempkP);
-//                checksumVal += sendItem(ctempkI, sysParameters.tempkI);
-//                checksumVal += sendItem(ctempkD, sysParameters.tempkD);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetQ1PID): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(cq1kP, sysParameters.q1kP);
-//                checksumVal += sendItem(cq1kI, sysParameters.q1kI);
-//                checksumVal += sendItem(cq1kD, sysParameters.q1kD);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetQ2PID): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(cq2kP, sysParameters.q2kP);
-//                checksumVal += sendItem(cq2kI, sysParameters.q2kI);
-//                checksumVal += sendItem(cq2kD, sysParameters.q2kD);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetPass): {
-//                putch(PKG_I);
-//                checksumVal += sendItemL(cPass, sysParameters.pass);
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetVol): {
-//                putch(PKG_I);
-//
-//                putch(PKG_F);
-//                break;
-//            }
-//            case(cgetOnOff): {
-//                sendOnOff(sysParameters.process, sysParameters.pump1, sysParameters.pump2);
-//                break;
-//            }
-//            case(cgetAllData): {
-//                putch(PKG_I);
-//                checksumVal += sendItem(ctempA, sysState.temp);
-//                checksumVal += sendItem(cq1A, sysState.q1);
-//                checksumVal += sendItem(cq2A, sysState.q2);
-//                checksumVal += sendItem(ctemp, sysParameters.temp);
-//                checksumVal += sendItem(cq1, sysParameters.q1);
-//                checksumVal += sendItem(cq2, sysParameters.q2);
-//                checksumVal += sendItem(ctempkP, sysParameters.tempkP);
-//                checksumVal += sendItem(ctempkI, sysParameters.tempkI);
-//                checksumVal += sendItem(ctempkD, sysParameters.tempkD);
-//                checksumVal += sendItem(cq1kP, sysParameters.q1kP);
-//                checksumVal += sendItem(cq1kI, sysParameters.q1kI);
-//                checksumVal += sendItem(cq1kD, sysParameters.q1kD);
-//                checksumVal += sendItem(cq2kP, sysParameters.q2kP);
-//                checksumVal += sendItem(cq2kI, sysParameters.q2kI);
-//                checksumVal += sendItem(cq2kD, sysParameters.q2kD);
-//                putch(cOnOff);
-//                checksumVal += cOnOff;
-//                putch(0);
-//                putch(sysParameters.pump1);
-//                checksumVal += sysParameters.pump1;
-//                putch(sysParameters.pump2);
-//                checksumVal += sysParameters.pump2;
-//                putch(sysParameters.process);
-//                checksumVal += sysParameters.process;
-//                sendItemL(cChecking, checksumVal);
-//                putch(PKG_F);
-//                break;
-//            }
-//            default: {
-//                sendCont--;
-//            }
-//        }
-//        sendDataEN = 0;
-//    }
-//}
-    
+    }   
 }

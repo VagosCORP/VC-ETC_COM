@@ -10,6 +10,8 @@
       <itemPath>source/Timer1Config.h</itemPath>
       <itemPath>source/ComandosP.h</itemPath>
       <itemPath>source/Timer2Config.h</itemPath>
+      <itemPath>source/InitialSysPar.h</itemPath>
+      <itemPath>source/ProtocolRes.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -1,31 +1,48 @@
 char contTim2 = 0;
-char deltatDes = 30;
-char deltat = 0;
     
 void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
     contTim2++;
     if(contTim2 > 5) {//1s = 5*200_ms
         contTim2 = 0;
-        sysParameters.segundos++;
-        if(sysParameters.segundos >= 60) {
-            sysParameters.segundos = 0;
-            sysParameters.minutos++;
-            deltat++;
-            if(deltat >= deltatDes) {
-                deltat = 0;
-                saveGItemEEPROM(sysState.temp);
-            }
-            if(sysParameters.minutos >= 60) {
-                sysParameters.minutos = 0;
-                sysParameters.horas++;
-                if(sysParameters.horas >= 24) {
-                    sysParameters.horas = 0;
-                    sysParameters.fecha++;
+        ActualTime.segundos++;
+        if(ActualTime.segundos >= 60) {
+            ActualTime.segundos = 0;
+            ActualTime.minutos++;
+            if(ActualTime.minutos >= 60) {
+                ActualTime.minutos = 0;
+                ActualTime.horas++;
+                if(ActualTime.horas >= 24) {
+                    ActualTime.horas = 0;
+                    ActualTime.fecha++;
                 }
             }
         }
+        valDeltaT.segundos++;
+        if(valDeltaT.segundos >= 60) {
+            valDeltaT.segundos = 0;
+            valDeltaT.minutos++;
+            if(valDeltaT.minutos >= 60) {
+                valDeltaT.minutos = 0;
+                valDeltaT.horas++;
+                if(valDeltaT.horas >= 24) {
+                    valDeltaT.horas = 0;
+                    valDeltaT.fecha++;
+                }
+            }
+        }
+        if(sysParameters.process && valDeltaT.theTime >= deltaTdes.theTime)
+            saveGItemEEPROM(sysState.temp);
     }
     IFS0bits.T2IF = 0; // Clear Timer1 Interrupt Flag}
+}
+
+void updateTime() {
+    IEC0bits.T2IE = 0;
+    ActualTime.segundos = sysParameters.segundos;
+    ActualTime.minutos = sysParameters.minutos;
+    ActualTime.horas = sysParameters.horas;
+    ActualTime.fecha = sysParameters.fecha;
+    IEC0bits.T2IE = 1;
 }
     
 void config_timer2(void) {
