@@ -1,3 +1,10 @@
+#ifndef TIMER1_H
+#define	TIMER1_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 char contTim1 = 0;
     
 void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void) {
@@ -23,3 +30,9 @@ void config_timer1(void) {
     TMR1 = 0;
     T1CONbits.TON = 1; // iniciar timer 1
 }
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* TIMER1_H */

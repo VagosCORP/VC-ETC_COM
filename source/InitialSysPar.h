@@ -1,3 +1,10 @@
+#ifndef INITIALSYSPAR_H
+#define	INITIALSYSPAR_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 void initVars() {
     sysState.temp = 0.0f;//temperatura actual
     sysState.q1 = 0.0f;//caudal actual 1
@@ -49,3 +56,9 @@ void initVars() {
     
     newSysParameters = sysParameters;
 }
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* INITIALSYSPAR */

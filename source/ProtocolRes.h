@@ -1,8 +1,13 @@
+#ifndef PROTOCOLRES_H
+#define	PROTOCOLRES_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 #include "ComandosP.h"
 
 unsigned char charD = 0;
-
-void updateTime();
 
 typedef union {
     long valDL;
@@ -103,3 +108,9 @@ typedef struct {
     float q1;
     float q2;
 }SYS_STATE;
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* PROTOCOLRES_H */

@@ -1,3 +1,10 @@
+#ifndef COMANDOSP_H
+#define	COMANDOSP_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 char PKG_I = 127;//valor de inicio del paqeute de datos
 char PKG_F = 100;//valor de final del paqeute de datos
 
@@ -38,3 +45,10 @@ char PKG_F = 100;//valor de final del paqeute de datos
 #define cSummarySendEnd     91 //also send the endHour of the process
 #define cSummarySendItem    92 //a float number for a point
 #define cSummarySendDetails 93 //n, n1, err1:err0 (error codes if any)
+#define cgetSummary         94 //Call for receive the GraphData
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* COMANDOSP */

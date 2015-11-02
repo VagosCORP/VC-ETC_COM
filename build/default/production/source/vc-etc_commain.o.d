@@ -5,7 +5,7 @@ source/../../Comunic.h  \
 source/Protocolo.h  \
  source/ProtocolRes.h  \
 source/ComandosP.h  \
-source/InitialSysPar.h  \
- source/UART1Config.h  \
-source/Timer1Config.h  \
-source/Timer2Config.h 
+source/Timer2Config.h  \
+ source/InitialSysPar.h  \
+source/UART1Config.h  \
+source/Timer1Config.h 

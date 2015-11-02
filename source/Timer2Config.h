@@ -1,3 +1,10 @@
+#ifndef TIMER2_H
+#define	TIMER2_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 char contTim2 = 0;
     
 void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
@@ -17,21 +24,23 @@ void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
                 }
             }
         }
-        valDeltaT.segundos++;
-        if(valDeltaT.segundos >= 60) {
-            valDeltaT.segundos = 0;
-            valDeltaT.minutos++;
-            if(valDeltaT.minutos >= 60) {
-                valDeltaT.minutos = 0;
-                valDeltaT.horas++;
-                if(valDeltaT.horas >= 24) {
-                    valDeltaT.horas = 0;
-                    valDeltaT.fecha++;
+        if(sysParameters.process) {
+            valDeltaT.segundos++;
+            if(valDeltaT.segundos >= 60) {
+                valDeltaT.segundos = 0;
+                valDeltaT.minutos++;
+                if(valDeltaT.minutos >= 60) {
+                    valDeltaT.minutos = 0;
+                    valDeltaT.horas++;
+                    if(valDeltaT.horas >= 24) {
+                        valDeltaT.horas = 0;
+                        valDeltaT.fecha++;
+                    }
                 }
             }
+            if(valDeltaT.theTime >= deltaTdes.theTime)
+                saveGraphItem2EEPROM(sysState.temp);
         }
-        if(sysParameters.process && valDeltaT.theTime >= deltaTdes.theTime)
-            saveGItemEEPROM(sysState.temp);
     }
     IFS0bits.T2IF = 0; // Clear Timer1 Interrupt Flag}
 }
@@ -59,3 +68,9 @@ void config_timer2(void) {
     TMR2 = 0;
     T2CONbits.TON = 1; // iniciar timer 1
 }
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* TIMER2_H */

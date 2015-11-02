@@ -1,3 +1,10 @@
+#ifndef SYSCONFIG_H
+#define	SYSCONFIG_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+    
 #define    FCY    40000000UL    // Instruction cycle frequency, Hz - required for __delayXXX() to work
 #include <libpic30.h>        // __delayXXX() functions macros defined here
 #include <stdio.h>
@@ -132,3 +139,8 @@ void config_clock(void) {
 //    //////////////////////////////////////////////
 //}
 
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* SYSCONFIG_H */

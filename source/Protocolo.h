@@ -13,9 +13,9 @@ THE_TIME deltaTdes =    {0};
 THE_TIME ProcessInit =  {0};
 THE_TIME ProcessEnd =   {0};
 
-char sendDataEN = 0;
-int sendCont = 0;
-int sendInit = 0;
+//char sendDataEN = 0;
+//int sendCont = 0;
+//int sendInit = 0;
 int dataCont = 0;
 unsigned char tempGet = 0;
 unsigned char betaGet = 0;
@@ -55,15 +55,15 @@ void sendError(char err) {
 
 PROCESS_DETAILS getProcessDetails() {
     PROCESS_DETAILS res;
-    res.n = 20;
-    res.n1 = 10;
+    res.n = 20;//baaaa
+    res.n1 = 10;//baaa
     res.err1 = 0;
     res.err0 = 0;
     res.fProcessInterrupted = 1;//err1:err0 short, pancho da
     return res;
 }
 
-void saveGItemEEPROM(long item) {
+void saveGraphItem2EEPROM(long item) {
     
 }
 
@@ -85,7 +85,15 @@ void sendGraphData() {
     int i;
     for(i = 0; i < processD.n; i++)
         checksumVal += sendItem(cSummarySendItem, graphItems[i]);
-    checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.theTime);
+    if(sysParameters.process) {
+        THE_TIME LastSample;
+        LastSample.fecha = ActualTime.fecha - valDeltaT.fecha;
+        LastSample.horas = ActualTime.horas - valDeltaT.horas;
+        LastSample.minutos = ActualTime.minutos - valDeltaT.minutos;
+        LastSample.segundos = ActualTime.segundos - valDeltaT.segundos;
+        checksumVal += sendItemL(cSummarySendEnd, LastSample.theTime);
+    }else
+        checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.theTime);
     sendItemL(cChecking, checksumVal);
     putch(PKG_F);
 }
@@ -154,6 +162,8 @@ void sendDatax(void) {
         putch(PKG_F);
     }
 }
+
+#include "Timer2Config.h"
 
 char interprete(unsigned char charDx, DATA_ITEM item) {
     char res = 1;
@@ -232,7 +242,7 @@ char interprete(unsigned char charDx, DATA_ITEM item) {
         }
         case(cError): {
             if(item.valDa == errSendGraph)
-                final_send.getGraphData = 1;//auto reintentar ó preguntar usuario?
+                final_send.getGraphData = 1;//>>auto reintentar<< ó preguntar usuario?
             else if(item.valDa != errNone) {
                 temp_send.getDesiredState = 1;
                 temp_send.getTempPID = 1;
@@ -278,6 +288,10 @@ char interprete(unsigned char charDx, DATA_ITEM item) {
             temp_send.getOnOff = 1;
             break;
         }
+        case(cgetSummary): {
+            temp_send.getGraphData = 1;
+            break;
+        }
         default: {
             res = 0;
         }
@@ -307,6 +321,12 @@ void rcvProtocol(unsigned char plec) {
                         if(!sysParameters.process && newSysParameters.process) {
                             valDeltaT.theTime = 0;
                             //startProcess (if updating 'process' flag is not enought)
+                        }else if(sysParameters.process && !newSysParameters.process) {
+                            ProcessEnd.fecha = ActualTime.fecha - valDeltaT.fecha;
+                            ProcessEnd.horas = ActualTime.horas - valDeltaT.horas;
+                            ProcessEnd.minutos = ActualTime.minutos - valDeltaT.minutos;
+                            ProcessEnd.segundos = ActualTime.segundos - valDeltaT.segundos;
+                            //endProcess (if updating 'process' flag is not enought)
                         }
                         sysParameters = newSysParameters;
                         if(sysParameters.syncTime) {
