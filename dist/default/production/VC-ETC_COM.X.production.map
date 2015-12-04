@@ -1,26 +1,20 @@
-Microchip Technology Inc, vv1.24 (0)
+Microchip Technology Inc, v1.25 (A)
 
 Tool Name:
-  c:\program files (x86)\microchip\xc16\v1.24\bin\bin\..\bin/elf-ld.exe
+  c:\program files (x86)\microchip\xc16\v1.25\bin\bin\..\bin/elf-ld.exe
 
 Command:
   -p24HJ128GP206 \
   -o \
   dist/default/production/VC-ETC_COM.X.production.elf \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/.. \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24E \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/PIC24E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24F \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/PIC24F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24H \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/PIC24H/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/dsPIC30F \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/dsPIC30F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/dsPIC33E \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/dsPIC33E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/dsPIC33F \
-  -Lc:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../support/dsPIC33F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/.. \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/PIC24E/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/PIC24F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/PIC24H/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/dsPIC30F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/dsPIC33E/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/source/vc-etc_commain.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24HJ128GP206.gld.00 \
@@ -37,59 +31,50 @@ Command:
   --smart-io \
   -Map=dist/default/production/VC-ETC_COM.X.production.map \
   --report-mem \
+  --memorysummary \
+  dist/default/production/memoryfile.xml \
   -start-group \
-  --library=pic30-elf \
+  --library=lega-pic30-elf \
   --library=rcfastm-elf \
-  --library=c-elf \
+  --library=lega-c-elf \
   -end-group \
 
+
+Optional library libp24HJ128GP206.a not found
 Archive member included because of file (symbol)
 
-c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
-                              c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o) (__data_init_standard)
-c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
+c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                              c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
                               build/default/production/source/vc-etc_commain.o (_(float, int, long long, short, float, short, int))
-c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
-                              c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo) (__funpack)
+c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
+                              c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo) (__funpack)
 
 
-Selected CodeGuard Options:
-  FGS:GSS:OFF
-  FSS:RSS:NO_RAM
-  FBS:RBS:NO_RAM
-
-CodeGuard FLASH Memory:
-  boot    (none)
-  secure  (none)
-  general 0x200 to 0x157fe
-
-CodeGuard RAM Memory:
-  general 0x800 to 0x27ff
-  secure  (none)
-  boot    (none)
-
+xc16-ld 1.25 (A)
 
 Program Memory  [Origin = 0x200, Length = 0x15600]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x10a           0x18f  (399)
-.text                        0x30a               0xca8          0x12fc  (4860)
-.dinit                       0xfb2                0x10            0x18  (24)
+.text                        0x30a               0xc4e          0x1275  (4725)
+.dinit                       0xf58                0x16            0x21  (33)
 
-                     Total program memory used (bytes):         0x14a3  (5283) 4%
+                     Total program memory used (bytes):         0x1425  (5157) 3%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0            0xc4  (196)
-.ndata                       0x8c4                   0             0x2  (2)
+.nbss                        0x800                   0            0x46  (70)
+.ndata                       0x846                   0             0x2  (2)
+.bss                         0x848                   0            0x94  (148)
 
-                        Total data memory used (bytes):           0xc6  (198) 2%
+                        Total data memory used (bytes):           0xdc  (220) 2%
 
 
 Dynamic Memory Usage
@@ -97,9 +82,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x8c6                              0x1f3a  (7994)
+stack                        0x8dc                              0x1f24  (7972)
 
-                        Maximum dynamic memory (bytes):         0x1f3a  (7994)
+                        Maximum dynamic memory (bytes):         0x1f24  (7972)
 
 
 External Symbols in Data Memory (by address):
@@ -108,55 +93,57 @@ External Symbols in Data Memory (by address):
                     0x0802                  _temp_send
                     0x0804                  _final_send
                     0x0806                  _dataItem
-                    0x080a                  _newSysParameters
-                    0x084e                  _sysParameters
-                    0x0892                  _sysState
-                    0x089e                  _ActualTime
-                    0x08a2                  _valDeltaT
-                    0x08a6                  _deltaTdes
-                    0x08aa                  _ProcessInit
-                    0x08ae                  _ProcessEnd
-                    0x08b2                  _dataCont
-                    0x08b4                  _tempGet
-                    0x08b5                  _betaGet
-                    0x08b6                  _itemCont
-                    0x08b7                  _floatCont
-                    0x08b8                  _dataInit
-                    0x08b9                  _itemInit
-                    0x08ba                  _checkSum
-                    0x08be                  _checkSumM
-                    0x08c2                  _contTim2
-                    0x08c3                  _contTim1
-                    0x08c4                  _PKG_I
-                    0x08c5                  _PKG_F
+                    0x080a                  _ActualTime
+                    0x0812                  _valDeltaT
+                    0x081a                  _deltaTdes
+                    0x0822                  _ProcessInit
+                    0x082a                  _ProcessEnd
+                    0x0832                  _dataCont
+                    0x0834                  _tempGet
+                    0x0835                  _betaGet
+                    0x0836                  _itemCont
+                    0x0837                  _floatCont
+                    0x0838                  _dataInit
+                    0x0839                  _itemInit
+                    0x083a                  _checkSum
+                    0x083e                  _checkSumM
+                    0x0842                  _valN
+                    0x0844                  _contTim2
+                    0x0845                  _contTim1
+                    0x0846                  _PKG_I
+                    0x0847                  _PKG_F
+                    0x0848                  _newSysParameters
+                    0x088c                  _sysParameters
+                    0x08d0                  _sysState
 
 External Symbols in Data Memory (by name):
 
-                    0x089e                  _ActualTime
-                    0x08c5                  _PKG_F
-                    0x08c4                  _PKG_I
-                    0x08ae                  _ProcessEnd
-                    0x08aa                  _ProcessInit
-                    0x08b5                  _betaGet
+                    0x080a                  _ActualTime
+                    0x0847                  _PKG_F
+                    0x0846                  _PKG_I
+                    0x082a                  _ProcessEnd
+                    0x0822                  _ProcessInit
+                    0x0835                  _betaGet
                     0x0800                  _charD
-                    0x08ba                  _checkSum
-                    0x08be                  _checkSumM
-                    0x08c3                  _contTim1
-                    0x08c2                  _contTim2
-                    0x08b2                  _dataCont
-                    0x08b8                  _dataInit
+                    0x083a                  _checkSum
+                    0x083e                  _checkSumM
+                    0x0845                  _contTim1
+                    0x0844                  _contTim2
+                    0x0832                  _dataCont
+                    0x0838                  _dataInit
                     0x0806                  _dataItem
-                    0x08a6                  _deltaTdes
+                    0x081a                  _deltaTdes
                     0x0804                  _final_send
-                    0x08b7                  _floatCont
-                    0x08b6                  _itemCont
-                    0x08b9                  _itemInit
-                    0x080a                  _newSysParameters
-                    0x084e                  _sysParameters
-                    0x0892                  _sysState
-                    0x08b4                  _tempGet
+                    0x0837                  _floatCont
+                    0x0836                  _itemCont
+                    0x0839                  _itemInit
+                    0x0848                  _newSysParameters
+                    0x088c                  _sysParameters
+                    0x08d0                  _sysState
+                    0x0834                  _tempGet
                     0x0802                  _temp_send
-                    0x08a2                  _valDeltaT
+                    0x0812                  _valDeltaT
+                    0x0842                  _valN
 
 External Symbols in Program Memory (by address):
 
@@ -170,46 +157,40 @@ External Symbols in Program Memory (by address):
                   0x00030a                  _config_clock
                   0x000374                  _send_float
                   0x0003b4                  _send_int32
-                  0x0003f2                  _send_int16
-                  0x000416                  _send_float_vt
-                  0x00042a                  _send_int32_vt
-                  0x00043e                  _send_int16_vt
-                  0x000452                  _genFloat
-                  0x000474                  _genLong
-                  0x000498                  _genShort
-                  0x0004ae                  _sendItem
-                  0x0004d2                  _sendItemL
-                  0x0004f6                  _sendError
-                  0x000536                  _getProcessDetails
-                  0x00055a                  _saveGraphItem2EEPROM
-                  0x000562                  _getEEPROMGraphdata
+                  0x0003f4                  _send_int16
+                  0x00041a                  _send_float_vt
+                  0x00042e                  _send_int32_vt
+                  0x000442                  _send_int16_vt
+                  0x000456                  _genFloat
+                  0x000476                  _genLong
+                  0x000496                  _genShort
+                  0x0004aa                  _sendItem
+                  0x0004ce                  _sendItemL
+                  0x0004f2                  _sendError
+                  0x00052e                  _saveGraphItem2EEPROM
+                  0x00053c                  _getEEPROMGraphdata
+                  0x000564                  _getProcessDetails
                   0x00058a                  _sendGraphData
-                  0x00069c                  _sendDatax
-                  0x000866                  __T2Interrupt
-                  0x00098a                  _updateTime
-                  0x0009bc                  _config_timer2
-                  0x0009e8                  _interprete
-                  0x000b9c                  _rcvProtocol
-                  0x000d88                  _initVars
-                  0x000eae                  _putch
-                  0x000ec6                  __U1RXInterrupt
-                  0x000eec                  _config_uart1
-                  0x000f3e                  __T1Interrupt
-                  0x000f6c                  _config_timer1
-                  0x000f98                  _main
-                  0xf80000                  __FBS.sec
-                  0xf80002                  __FSS.sec
-                  0xf80004                  __FGS.sec
+                  0x0006ae                  _sendDatax
+                  0x00084e                  __T2Interrupt
+                  0x000988                  _updateTime
+                  0x0009b6                  _config_timer2
+                  0x0009e0                  _interprete
+                  0x000b7c                  _rcvProtocol
+                  0x000d64                  _initVars
+                  0x000e6a                  _putch
+                  0x000e82                  __U1RXInterrupt
+                  0x000ea6                  _config_uart1
+                  0x000ef8                  __T1Interrupt
+                  0x000f14                  _config_timer1
+                  0x000f3e                  _main
 
 External Symbols in Program Memory (by name):
 
                   0x00029a                  __DefaultInterrupt
-                  0xf80000                  __FBS.sec
-                  0xf80004                  __FGS.sec
-                  0xf80002                  __FSS.sec
-                  0x000f3e                  __T1Interrupt
-                  0x000866                  __T2Interrupt
-                  0x000ec6                  __U1RXInterrupt
+                  0x000ef8                  __T1Interrupt
+                  0x00084e                  __T2Interrupt
+                  0x000e82                  __U1RXInterrupt
                   0x00029e                  ___fixsfsi
                   0x00023c                  __data_init
                   0x00023c                  __data_init_standard
@@ -217,32 +198,32 @@ External Symbols in Program Memory (by name):
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
                   0x00030a                  _config_clock
-                  0x000f6c                  _config_timer1
-                  0x0009bc                  _config_timer2
-                  0x000eec                  _config_uart1
-                  0x000452                  _genFloat
-                  0x000474                  _genLong
-                  0x000498                  _genShort
-                  0x000562                  _getEEPROMGraphdata
-                  0x000536                  _getProcessDetails
-                  0x000d88                  _initVars
-                  0x0009e8                  _interprete
-                  0x000f98                  _main
-                  0x000eae                  _putch
-                  0x000b9c                  _rcvProtocol
-                  0x00055a                  _saveGraphItem2EEPROM
-                  0x00069c                  _sendDatax
-                  0x0004f6                  _sendError
+                  0x000f14                  _config_timer1
+                  0x0009b6                  _config_timer2
+                  0x000ea6                  _config_uart1
+                  0x000456                  _genFloat
+                  0x000476                  _genLong
+                  0x000496                  _genShort
+                  0x00053c                  _getEEPROMGraphdata
+                  0x000564                  _getProcessDetails
+                  0x000d64                  _initVars
+                  0x0009e0                  _interprete
+                  0x000f3e                  _main
+                  0x000e6a                  _putch
+                  0x000b7c                  _rcvProtocol
+                  0x00052e                  _saveGraphItem2EEPROM
+                  0x0006ae                  _sendDatax
+                  0x0004f2                  _sendError
                   0x00058a                  _sendGraphData
-                  0x0004ae                  _sendItem
-                  0x0004d2                  _sendItemL
+                  0x0004aa                  _sendItem
+                  0x0004ce                  _sendItemL
                   0x000374                  _send_float
-                  0x000416                  _send_float_vt
-                  0x0003f2                  _send_int16
-                  0x00043e                  _send_int16_vt
+                  0x00041a                  _send_float_vt
+                  0x0003f4                  _send_int16
+                  0x000442                  _send_int16_vt
                   0x0003b4                  _send_int32
-                  0x00042a                  _send_int32_vt
-                  0x00098a                  _updateTime
+                  0x00042e                  _send_int32_vt
+                  0x000988                  _updateTime
 
 Memory Configuration
 
@@ -271,8 +252,8 @@ Linker script and memory map
 
 LOAD build/default/production/source/vc-etc_commain.o
                     0x0001                  __MPLAB_BUILD = 0x1
-LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib/PIC24H\libp24HJ128GP206-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libfx-elf.a
+LOAD p24HJ128GP206
+LOAD c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
                     0xf80002                  __FSS = 0xf80002
                     0xf80004                  __FGS = 0xf80004
@@ -302,11 +283,11 @@ LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libfx-elf.a
 
 .text             0x000200        0x10a
  *(.init)
- .init            0x000200         0x3c c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+ .init            0x000200         0x3c c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
                   0x000200                  __reset
                   0x00022c                  __psv_init
- .init            0x00023c         0x5e c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+ .init            0x00023c         0x5e c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
                   0x00023c                  __data_init_standard
                   0x00023c                  __data_init
  *(.user_init)
@@ -318,28 +299,22 @@ LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libfx-elf.a
  *(.libm)
  *(.libdsp)
  *(.lib*)
- .libm.fixsfsi    0x00029e         0x42 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
+ .libm.fixsfsi    0x00029e         0x42 c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
                   0x00029e                  _(float, int, long long, short, float, short, int)
- .libm.funpack    0x0002e0         0x2a c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
+ .libm.funpack    0x0002e0         0x2a c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
                   0x0002e0                  __funpack
 
 usercode
  *(usercode)
 
-__FBS             0xf80000          0x2
+__FBS
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 FBS
-                  0xf80000                  __FBS.sec
 
-__FSS             0xf80002          0x2
+__FSS
  *(__FSS.sec*)
- __FSS.sec        0xf80002          0x2 FSS
-                  0xf80002                  __FSS.sec
 
-__FGS             0xf80004          0x2
+__FGS
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 FGS
-                  0xf80004                  __FGS.sec
 
 __FOSCSEL
  *(__FOSCSEL.sec*)
@@ -371,26 +346,26 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2659
+.debug_info       0x000000       0x26a8
  *(.debug_info)
- .debug_info      0x000000       0x2659 build/default/production/source/vc-etc_commain.o
+ .debug_info      0x000000       0x26a8 build/default/production/source/vc-etc_commain.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x2b5
+.debug_abbrev     0x000000        0x2a0
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x2b5 build/default/production/source/vc-etc_commain.o
+ .debug_abbrev    0x000000        0x2a0 build/default/production/source/vc-etc_commain.o
 
-.debug_line       0x000000       0x1108
+.debug_line       0x000000       0x1110
  *(.debug_line)
- .debug_line      0x000000       0x1108 build/default/production/source/vc-etc_commain.o
+ .debug_line      0x000000       0x1110 build/default/production/source/vc-etc_commain.o
 
 .debug_frame      0x000000        0x1f4
  *(.debug_frame)
  .debug_frame     0x000000        0x1f4 build/default/production/source/vc-etc_commain.o
 
-.debug_str        0x000000        0x176
+.debug_str        0x000000        0x16d
  *(.debug_str)
- .debug_str       0x000000        0x176 build/default/production/source/vc-etc_commain.o
+ .debug_str       0x000000        0x16d build/default/production/source/vc-etc_commain.o
 
 .debug_loc
  *(.debug_loc)
@@ -399,10 +374,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x348
+                  0x000000        0x351
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x348 build/default/production/source/vc-etc_commain.o
+                  0x000000        0x351 build/default/production/source/vc-etc_commain.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -424,15 +399,15 @@ __FUID3
                   0x000014          0x4 LONG 0x29a DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x29a DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x29a DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0xf3e DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0xef8 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x29a DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x29a DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x29a DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000022          0x4 LONG 0x866 DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000022          0x4 LONG 0x84e DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000024          0x4 LONG 0x29a DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x29a DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x29a DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002a          0x4 LONG 0xec6 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0xe82 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0x29a DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002e          0x4 LONG 0x29a DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x29a DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -552,15 +527,15 @@ __FUID3
                   0x000114          0x4 LONG 0x29a DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x29a DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x29a DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0xf3e DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0xef8 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x29a DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x29a DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x29a DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000122          0x4 LONG 0x866 DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000122          0x4 LONG 0x84e DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000124          0x4 LONG 0x29a DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x29a DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x29a DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012a          0x4 LONG 0xec6 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012a          0x4 LONG 0xe82 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0x29a DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012e          0x4 LONG 0x29a DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x29a DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1373,14 +1348,11 @@ __FUID3
                     0x0230                  UART2 = 0x230
                     0x0230                  _UART2 = 0x230
 START GROUP
-LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libc-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/VC-ETC_COM.X.production.elf elf32-pic30)
-LOAD FGS
-LOAD FSS
-LOAD FBS
 LOAD default_isr
 LOAD data_init
 
@@ -1394,44 +1366,48 @@ __c30_signature
  __c30_signature
                   0x000222          0x6 build/default/production/source/vc-etc_commain.o
  __c30_signature
-                  0x000228          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000228          0x6 c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00022e          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00022e          0x6 c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x000234          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
+                  0x000234          0x6 c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x00023a          0x6 c:/program files (x86)/microchip/xc16/v1.24/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
+                  0x00023a          0x6 c:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\librcfastm-elf.a(funpack.eo)
 
-.nbss               0x0800         0xc4
- .nbss              0x0800         0xc4 build/default/production/source/vc-etc_commain.o
+.nbss               0x0800         0x46
+ .nbss              0x0800         0x46 build/default/production/source/vc-etc_commain.o
                     0x0800                  _charD
                     0x0802                  _temp_send
                     0x0804                  _final_send
                     0x0806                  _dataItem
-                    0x080a                  _newSysParameters
-                    0x084e                  _sysParameters
-                    0x0892                  _sysState
-                    0x089e                  _ActualTime
-                    0x08a2                  _valDeltaT
-                    0x08a6                  _deltaTdes
-                    0x08aa                  _ProcessInit
-                    0x08ae                  _ProcessEnd
-                    0x08b2                  _dataCont
-                    0x08b4                  _tempGet
-                    0x08b5                  _betaGet
-                    0x08b6                  _itemCont
-                    0x08b7                  _floatCont
-                    0x08b8                  _dataInit
-                    0x08b9                  _itemInit
-                    0x08ba                  _checkSum
-                    0x08be                  _checkSumM
-                    0x08c2                  _contTim2
-                    0x08c3                  _contTim1
+                    0x080a                  _ActualTime
+                    0x0812                  _valDeltaT
+                    0x081a                  _deltaTdes
+                    0x0822                  _ProcessInit
+                    0x082a                  _ProcessEnd
+                    0x0832                  _dataCont
+                    0x0834                  _tempGet
+                    0x0835                  _betaGet
+                    0x0836                  _itemCont
+                    0x0837                  _floatCont
+                    0x0838                  _dataInit
+                    0x0839                  _itemInit
+                    0x083a                  _checkSum
+                    0x083e                  _checkSumM
+                    0x0842                  _valN
+                    0x0844                  _contTim2
+                    0x0845                  _contTim1
 
-.ndata              0x08c4          0x2
- .ndata             0x08c4          0x2 build/default/production/source/vc-etc_commain.o
-                    0x08c4                  _PKG_I
-                    0x08c5                  _PKG_F
+.ndata              0x0846          0x2
+ .ndata             0x0846          0x2 build/default/production/source/vc-etc_commain.o
+                    0x0846                  _PKG_I
+                    0x0847                  _PKG_F
+
+.bss                0x0848         0x94
+ .bss               0x0848         0x94 build/default/production/source/vc-etc_commain.o
+                    0x0848                  _newSysParameters
+                    0x088c                  _sysParameters
+                    0x08d0                  _sysState
 
 .config_JTAGEN    0xf8000e          0x2
  .config_JTAGEN
@@ -1450,38 +1426,47 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/production/source/vc-etc_commain.o
 
-.text             0x00030a        0xca8
- .text            0x00030a        0xca8 build/default/production/source/vc-etc_commain.o
+.config_GSS       0xf80004          0x2
+ .config_GSS      0xf80004          0x2 build/default/production/source/vc-etc_commain.o
+
+.config_RSS       0xf80002          0x2
+ .config_RSS      0xf80002          0x2 build/default/production/source/vc-etc_commain.o
+
+.config_RBS       0xf80000          0x2
+ .config_RBS      0xf80000          0x2 build/default/production/source/vc-etc_commain.o
+
+.text             0x00030a        0xc4e
+ .text            0x00030a        0xc4e build/default/production/source/vc-etc_commain.o
                   0x00030a                  _config_clock
                   0x000374                  _send_float
                   0x0003b4                  _send_int32
-                  0x0003f2                  _send_int16
-                  0x000416                  _send_float_vt
-                  0x00042a                  _send_int32_vt
-                  0x00043e                  _send_int16_vt
-                  0x000452                  _genFloat
-                  0x000474                  _genLong
-                  0x000498                  _genShort
-                  0x0004ae                  _sendItem
-                  0x0004d2                  _sendItemL
-                  0x0004f6                  _sendError
-                  0x000536                  _getProcessDetails
-                  0x00055a                  _saveGraphItem2EEPROM
-                  0x000562                  _getEEPROMGraphdata
+                  0x0003f4                  _send_int16
+                  0x00041a                  _send_float_vt
+                  0x00042e                  _send_int32_vt
+                  0x000442                  _send_int16_vt
+                  0x000456                  _genFloat
+                  0x000476                  _genLong
+                  0x000496                  _genShort
+                  0x0004aa                  _sendItem
+                  0x0004ce                  _sendItemL
+                  0x0004f2                  _sendError
+                  0x00052e                  _saveGraphItem2EEPROM
+                  0x00053c                  _getEEPROMGraphdata
+                  0x000564                  _getProcessDetails
                   0x00058a                  _sendGraphData
-                  0x00069c                  _sendDatax
-                  0x000866                  __T2Interrupt
-                  0x00098a                  _updateTime
-                  0x0009bc                  _config_timer2
-                  0x0009e8                  _interprete
-                  0x000b9c                  _rcvProtocol
-                  0x000d88                  _initVars
-                  0x000eae                  _putch
-                  0x000ec6                  __U1RXInterrupt
-                  0x000eec                  _config_uart1
-                  0x000f3e                  __T1Interrupt
-                  0x000f6c                  _config_timer1
-                  0x000f98                  _main
+                  0x0006ae                  _sendDatax
+                  0x00084e                  __T2Interrupt
+                  0x000988                  _updateTime
+                  0x0009b6                  _config_timer2
+                  0x0009e0                  _interprete
+                  0x000b7c                  _rcvProtocol
+                  0x000d64                  _initVars
+                  0x000e6a                  _putch
+                  0x000e82                  __U1RXInterrupt
+                  0x000ea6                  _config_uart1
+                  0x000ef8                  __T1Interrupt
+                  0x000f14                  _config_timer1
+                  0x000f3e                  _main
 
-.dinit            0x000fb2         0x10
- .dinit           0x000fb2         0x10 data_init
+.dinit            0x000f58         0x16
+ .dinit           0x000f58         0x16 data_init

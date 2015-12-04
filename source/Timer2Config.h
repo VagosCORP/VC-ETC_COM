@@ -1,6 +1,9 @@
 #ifndef TIMER2_H
 #define	TIMER2_H
 
+#include "ProtocolRes.h"
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -12,34 +15,36 @@ void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
     if(contTim2 > 5) {//1s = 5*200_ms
         contTim2 = 0;
         ActualTime.segundos++;
-        if(ActualTime.segundos >= 60) {
+        if(ActualTime.segundos >= 86400) {
             ActualTime.segundos = 0;
-            ActualTime.minutos++;
-            if(ActualTime.minutos >= 60) {
-                ActualTime.minutos = 0;
-                ActualTime.horas++;
-                if(ActualTime.horas >= 24) {
-                    ActualTime.horas = 0;
-                    ActualTime.fecha++;
-                }
-            }
+//            ActualTime.minutos++;
+//            if(ActualTime.minutos >= 60) {
+//                ActualTime.minutos = 0;
+//                ActualTime.horas++;
+//                if(ActualTime.horas >= 24) {
+//                    ActualTime.horas = 0;
+            ActualTime.fecha++;
+//                }
+//            }
         }
         if(sysParameters.process) {
             valDeltaT.segundos++;
-            if(valDeltaT.segundos >= 60) {
+            if(valDeltaT.segundos >= 86400) {
                 valDeltaT.segundos = 0;
-                valDeltaT.minutos++;
-                if(valDeltaT.minutos >= 60) {
-                    valDeltaT.minutos = 0;
-                    valDeltaT.horas++;
-                    if(valDeltaT.horas >= 24) {
-                        valDeltaT.horas = 0;
-                        valDeltaT.fecha++;
-                    }
-                }
+//                valDeltaT.minutos++;
+//                if(valDeltaT.minutos >= 60) {
+//                    valDeltaT.minutos = 0;
+//                    valDeltaT.horas++;
+//                    if(valDeltaT.horas >= 24) {
+//                        valDeltaT.horas = 0;
+                valDeltaT.fecha++;
+//                    }
+//                }
             }
-            if(valDeltaT.theTime >= deltaTdes.theTime)
+            if(valDeltaT.segundos >= deltaTdes.segundos) {
                 saveGraphItem2EEPROM(sysState.temp);
+                valDeltaT.segundos = 0;
+            }
         }
     }
     IFS0bits.T2IF = 0; // Clear Timer1 Interrupt Flag}
@@ -47,9 +52,9 @@ void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
 
 void updateTime() {
     IEC0bits.T2IE = 0;
-    ActualTime.segundos = sysParameters.segundos;
-    ActualTime.minutos = sysParameters.minutos;
-    ActualTime.horas = sysParameters.horas;
+    ActualTime.secA = sysParameters.secA;
+    ActualTime.secB = sysParameters.secB;
+    ActualTime.secC = sysParameters.secC;
     ActualTime.fecha = sysParameters.fecha;
     IEC0bits.T2IE = 1;
 }

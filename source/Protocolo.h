@@ -25,23 +25,27 @@ char dataInit = 0;
 char itemInit = 0;
 long checkSum = 0;
 long checkSumM = 0;
+int valN = 0;
 
 short sendItem(char comando, float floatVal) {
-    short checksum = comando; 
+    short checksum = 0;
+    checksum += comando; 
     putch(comando);
     checksum += send_float(floatVal);
     return checksum;
 }
 
 short sendItemL(char comando, long longVal) {
-    short checksum = comando; 
+    short checksum = 0;
+    checksum += comando; 
     putch(comando);
     checksum += send_int32(longVal);
     return checksum;
 }
 
 void sendError(char err) {
-    short checksum = cError;
+    short checksum = 0;
+    checksum += cError;
     putch(PKG_I);
     putch(cError);
     putch(0);
@@ -53,24 +57,24 @@ void sendError(char err) {
     putch(PKG_F);
 }
 
-PROCESS_DETAILS getProcessDetails() {
-    PROCESS_DETAILS res;
-    res.n = 20;//baaaa
-    res.n1 = 10;//baaa
-    res.err1 = 0;
-    res.err0 = 0;
-    res.fProcessInterrupted = 1;//err1:err0 short, pancho da
-    return res;
-}
-
 void saveGraphItem2EEPROM(long item) {
-    
+    valN++;
 }
 
 void getEEPROMGraphdata(float * aPointer, int numDat) {
     int i;
     for(i = 0; i < numDat; i++)
         *(aPointer + i) = 19.2f;
+}
+
+PROCESS_DETAILS getProcessDetails() {
+    PROCESS_DETAILS res;
+    res.n = valN;//baaaa
+    res.n1 = 2;//baaa
+    res.err1 = 0;
+    res.err0 = 0;
+    res.fProcessInterrupted = 1;//err1:err0 short, pancho da
+    return res;
 }
 
 void sendGraphData() {
@@ -88,52 +92,85 @@ void sendGraphData() {
     if(sysParameters.process) {
         THE_TIME LastSample;
         LastSample.fecha = ActualTime.fecha - valDeltaT.fecha;
-        LastSample.horas = ActualTime.horas - valDeltaT.horas;
-        LastSample.minutos = ActualTime.minutos - valDeltaT.minutos;
+//        LastSample.horas = ActualTime.horas - valDeltaT.horas;
+//        LastSample.minutos = ActualTime.minutos - valDeltaT.minutos;
         LastSample.segundos = ActualTime.segundos - valDeltaT.segundos;
         checksumVal += sendItemL(cSummarySendEnd, LastSample.theTime);
     }else
         checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.theTime);
     sendItemL(cChecking, checksumVal);
+    final_send.getGraphData = 0;
     putch(PKG_F);
 }
 
 void sendDatax(void) {
     if(final_send.theGet != 0) {
         long checksumVal = 0;
+//        send_int32_vt(checksumVal);
         putch(PKG_I);
         if(final_send.getActualState) {
             checksumVal += sendItem(ctempA, sysState.temp);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq1A, sysState.q1);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq2A, sysState.q2);
+//            send_int32_vt(checksumVal);
             final_send.getActualState = 0;
         }
         if(final_send.getDesiredState) {
+//            checksumVal = 0;
             checksumVal += sendItem(ctemp, sysParameters.temp);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq1, sysParameters.q1);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq2, sysParameters.q2);
+//            send_int32_vt(checksumVal);
             final_send.getDesiredState = 0;
         }
         if(final_send.getTempPID) {
+//            checksumVal = 0;
             checksumVal += sendItem(ctempkP, sysParameters.tempkP);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(ctempkI, sysParameters.tempkI);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(ctempkD, sysParameters.tempkD);
+//            send_int32_vt(checksumVal);
             final_send.getTempPID = 0;
         }
         if(final_send.getQ1PID) {
+//            checksumVal = 0;
             checksumVal += sendItem(cq1kP, sysParameters.q1kP);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq1kI, sysParameters.q1kI);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq1kD, sysParameters.q1kD);
+//            send_int32_vt(checksumVal);
             final_send.getQ1PID = 0;
         }
         if(final_send.getQ2PID) {
+//            checksumVal = 0;
             checksumVal += sendItem(cq2kP, sysParameters.q2kP);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq2kI, sysParameters.q2kI);
+//            send_int32_vt(checksumVal);
+//            checksumVal = 0;
             checksumVal += sendItem(cq2kD, sysParameters.q2kD);
+//            send_int32_vt(checksumVal);
             final_send.getQ2PID = 0;
         }
         if(final_send.getPass) {
+//            checksumVal = 0;
             checksumVal += sendItemL(cPass, sysParameters.pass);
+//            send_int32_vt(checksumVal);
             final_send.getPass  = 0;
         }
         if(final_send.getVol) {
@@ -141,12 +178,14 @@ void sendDatax(void) {
             final_send.getVol = 0;
         }
         if(final_send.getOnOff) {
+//            checksumVal = 0;
             DATA_ITEM sysOnOff;
             sysOnOff.valDd = 0;
             sysOnOff.valDc = sysParameters.pump1;
             sysOnOff.valDb = sysParameters.pump2;
             sysOnOff.valDa = sysParameters.process;
             checksumVal += sendItemL(cOnOff, sysOnOff.valDL);
+//            send_int32_vt(checksumVal);
             /*putch(cOnOff); //sin usar estructura
             checksumVal += cOnOff;
             putch(0);
@@ -158,6 +197,7 @@ void sendDatax(void) {
             checksumVal += sysParameters.process;*/
             final_send.getOnOff = 0;
         }
+//        send_int32_vt(checksumVal);
         sendItemL(cChecking, checksumVal);
         putch(PKG_F);
     }
@@ -223,9 +263,9 @@ char interprete(unsigned char charDx, DATA_ITEM item) {
         }
         case(cHourA): {
             newSysParameters.fecha = item.valDd;
-            newSysParameters.horas = item.valDc;
-            newSysParameters.minutos = item.valDb;
-            newSysParameters.segundos = item.valDa;
+            newSysParameters.secC = item.valDc;
+            newSysParameters.secB = item.valDb;
+            newSysParameters.secA = item.valDa;
             newSysParameters.syncTime = 1;
             break;
         }
@@ -320,11 +360,16 @@ void rcvProtocol(unsigned char plec) {
                     }else {
                         if(!sysParameters.process && newSysParameters.process) {
                             valDeltaT.theTime = 0;
+                            valDeltaT.segundos = 3600;
+                            ProcessInit.fecha = ActualTime.fecha;
+//                            ProcessInit.horas = ActualTime.horas;
+//                            ProcessInit.minutos = ActualTime.minutos;
+                            ProcessInit.segundos = ActualTime.segundos;
                             //startProcess (if updating 'process' flag is not enought)
                         }else if(sysParameters.process && !newSysParameters.process) {
                             ProcessEnd.fecha = ActualTime.fecha - valDeltaT.fecha;
-                            ProcessEnd.horas = ActualTime.horas - valDeltaT.horas;
-                            ProcessEnd.minutos = ActualTime.minutos - valDeltaT.minutos;
+//                            ProcessEnd.horas = ActualTime.horas - valDeltaT.horas;
+//                            ProcessEnd.minutos = ActualTime.minutos - valDeltaT.minutos;
                             ProcessEnd.segundos = ActualTime.segundos - valDeltaT.segundos;
                             //endProcess (if updating 'process' flag is not enought)
                         }

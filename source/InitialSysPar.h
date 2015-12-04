@@ -1,6 +1,9 @@
 #ifndef INITIALSYSPAR_H
 #define	INITIALSYSPAR_H
 
+#include "ProtocolRes.h"
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -11,23 +14,24 @@ void initVars() {
     sysState.q2 = 0.0f;//caudal actual 2
     
     valDeltaT.theTime = 0;//todo en 0
-    deltaTdes.minutos = 30;//hr, sec, fecha = 0
+    deltaTdes.theTime = 0;//hr, sec, fecha = 0
+    deltaTdes.segundos = 900;//hr, sec, fecha = 0
     
     ActualTime.fecha = 99;
-    ActualTime.horas = 12;
-    ActualTime.minutos = 30;
-    ActualTime.segundos = 25;
+//    ActualTime.horas = 12;
+//    ActualTime.minutos = 30;
+    ActualTime.segundos = 45025;
     sysParameters.syncTime = 0;
     
     ProcessInit.fecha = 99;
-    ProcessInit.horas = 12;
-    ProcessInit.minutos = 30;
-    ProcessInit.segundos = 25;
+//    ProcessInit.horas = 12;
+//    ProcessInit.minutos = 30;
+    ProcessInit.segundos = 45025;
     
     ProcessEnd.fecha = 99;
-    ProcessEnd.horas = 12;
-    ProcessEnd.minutos = 30;
-    ProcessEnd.segundos = 25;
+//    ProcessEnd.horas = 12;
+//    ProcessEnd.minutos = 30;
+    ProcessEnd.segundos = 45025;
     
     sysParameters.pass = 1234567890;
     
