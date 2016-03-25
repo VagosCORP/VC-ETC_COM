@@ -72,7 +72,7 @@ typedef union {
         unsigned char fecha;
     };
     struct {
-        unsigned long secA;
+        unsigned char secA;
         unsigned char secB;
         unsigned char secC;
         unsigned char fecha;

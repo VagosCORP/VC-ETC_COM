@@ -23,7 +23,7 @@ void config_uart1(void) {
 //    U1BRG = 8; //BaudRate = 115200;//24F
     //    U1BRG = 259; //BaudRate = 9600;//24H
     U1BRG = 64; //BaudRate = 38400;//24H
-    //    U1BRG = 21; //BaudRate = 115200;//24H
+//    U1BRG = 21; //BaudRate = 115200;//24H
     U1MODEbits.UARTEN = 1;
     U1MODEbits.USIDL = 0;
     U1MODEbits.IREN = 0;

@@ -3,7 +3,6 @@
 
 #include "ProtocolRes.h"
 
-
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -12,42 +11,22 @@ char contTim2 = 0;
     
 void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void) {
     contTim2++;
-    if(contTim2 > 5) {//1s = 5*200_ms
+    if(contTim2 > 4) {//1s = 5*200_ms
         contTim2 = 0;
         ActualTime.segundos++;
         if(ActualTime.segundos >= 86400) {
             ActualTime.segundos = 0;
-//            ActualTime.minutos++;
-//            if(ActualTime.minutos >= 60) {
-//                ActualTime.minutos = 0;
-//                ActualTime.horas++;
-//                if(ActualTime.horas >= 24) {
-//                    ActualTime.horas = 0;
             ActualTime.fecha++;
-//                }
-//            }
         }
         if(sysParameters.process) {
             valDeltaT.segundos++;
-            if(valDeltaT.segundos >= 86400) {
-                valDeltaT.segundos = 0;
-//                valDeltaT.minutos++;
-//                if(valDeltaT.minutos >= 60) {
-//                    valDeltaT.minutos = 0;
-//                    valDeltaT.horas++;
-//                    if(valDeltaT.horas >= 24) {
-//                        valDeltaT.horas = 0;
-                valDeltaT.fecha++;
-//                    }
-//                }
-            }
             if(valDeltaT.segundos >= deltaTdes.segundos) {
                 saveGraphItem2EEPROM(sysState.temp);
                 valDeltaT.segundos = 0;
             }
         }
     }
-    IFS0bits.T2IF = 0; // Clear Timer1 Interrupt Flag}
+    IFS0bits.T2IF = 0; // Clear Timer2 Interrupt Flag
 }
 
 void updateTime() {

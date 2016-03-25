@@ -70,7 +70,7 @@ void getEEPROMGraphdata(float * aPointer, int numDat) {
 PROCESS_DETAILS getProcessDetails() {
     PROCESS_DETAILS res;
     res.n = valN;//baaaa
-    res.n1 = 2;//baaa
+    res.n1 = 4;//baaa
     res.err1 = 0;
     res.err0 = 0;
     res.fProcessInterrupted = 1;//err1:err0 short, pancho da
@@ -91,10 +91,16 @@ void sendGraphData() {
         checksumVal += sendItem(cSummarySendItem, graphItems[i]);
     if(sysParameters.process) {
         THE_TIME LastSample;
-        LastSample.fecha = ActualTime.fecha - valDeltaT.fecha;
-//        LastSample.horas = ActualTime.horas - valDeltaT.horas;
-//        LastSample.minutos = ActualTime.minutos - valDeltaT.minutos;
-        LastSample.segundos = ActualTime.segundos - valDeltaT.segundos;
+        LastSample.theTime = 0;
+        if(ActualTime.segundos < valDeltaT.segundos) {
+            LastSample.fecha = ActualTime.fecha - 1;
+            LastSample.segundos = 86400 - ActualTime.segundos;
+        }else {
+            LastSample.fecha = ActualTime.fecha;
+            LastSample.segundos = ActualTime.segundos - valDeltaT.segundos;
+            if(LastSample.segundos < ProcessInit.segundos)
+                LastSample.segundos = ProcessInit.segundos;
+        }
         checksumVal += sendItemL(cSummarySendEnd, LastSample.theTime);
     }else
         checksumVal += sendItemL(cSummarySendEnd, ProcessEnd.theTime);
@@ -106,71 +112,39 @@ void sendGraphData() {
 void sendDatax(void) {
     if(final_send.theGet != 0) {
         long checksumVal = 0;
-//        send_int32_vt(checksumVal);
         putch(PKG_I);
         if(final_send.getActualState) {
             checksumVal += sendItem(ctempA, sysState.temp);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq1A, sysState.q1);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq2A, sysState.q2);
-//            send_int32_vt(checksumVal);
             final_send.getActualState = 0;
         }
         if(final_send.getDesiredState) {
-//            checksumVal = 0;
             checksumVal += sendItem(ctemp, sysParameters.temp);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq1, sysParameters.q1);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq2, sysParameters.q2);
-//            send_int32_vt(checksumVal);
             final_send.getDesiredState = 0;
         }
         if(final_send.getTempPID) {
-//            checksumVal = 0;
             checksumVal += sendItem(ctempkP, sysParameters.tempkP);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(ctempkI, sysParameters.tempkI);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(ctempkD, sysParameters.tempkD);
-//            send_int32_vt(checksumVal);
             final_send.getTempPID = 0;
         }
         if(final_send.getQ1PID) {
-//            checksumVal = 0;
             checksumVal += sendItem(cq1kP, sysParameters.q1kP);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq1kI, sysParameters.q1kI);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq1kD, sysParameters.q1kD);
-//            send_int32_vt(checksumVal);
             final_send.getQ1PID = 0;
         }
         if(final_send.getQ2PID) {
-//            checksumVal = 0;
             checksumVal += sendItem(cq2kP, sysParameters.q2kP);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq2kI, sysParameters.q2kI);
-//            send_int32_vt(checksumVal);
-//            checksumVal = 0;
             checksumVal += sendItem(cq2kD, sysParameters.q2kD);
-//            send_int32_vt(checksumVal);
             final_send.getQ2PID = 0;
         }
         if(final_send.getPass) {
-//            checksumVal = 0;
             checksumVal += sendItemL(cPass, sysParameters.pass);
-//            send_int32_vt(checksumVal);
             final_send.getPass  = 0;
         }
         if(final_send.getVol) {
@@ -178,14 +152,12 @@ void sendDatax(void) {
             final_send.getVol = 0;
         }
         if(final_send.getOnOff) {
-//            checksumVal = 0;
             DATA_ITEM sysOnOff;
             sysOnOff.valDd = 0;
             sysOnOff.valDc = sysParameters.pump1;
             sysOnOff.valDb = sysParameters.pump2;
             sysOnOff.valDa = sysParameters.process;
             checksumVal += sendItemL(cOnOff, sysOnOff.valDL);
-//            send_int32_vt(checksumVal);
             /*putch(cOnOff); //sin usar estructura
             checksumVal += cOnOff;
             putch(0);
@@ -197,7 +169,6 @@ void sendDatax(void) {
             checksumVal += sysParameters.process;*/
             final_send.getOnOff = 0;
         }
-//        send_int32_vt(checksumVal);
         sendItemL(cChecking, checksumVal);
         putch(PKG_F);
     }
@@ -360,20 +331,18 @@ void rcvProtocol(unsigned char plec) {
                     }else {
                         if(!sysParameters.process && newSysParameters.process) {
                             valDeltaT.theTime = 0;
-                            valDeltaT.segundos = 3600;
+                            valDeltaT.fecha = 0;
+                            valDeltaT.segundos = deltaTdes.segundos + 1;
+                            valN = 0;
                             ProcessInit.fecha = ActualTime.fecha;
-//                            ProcessInit.horas = ActualTime.horas;
-//                            ProcessInit.minutos = ActualTime.minutos;
                             ProcessInit.segundos = ActualTime.segundos;
-                            //startProcess (if updating 'process' flag is not enought)
+                            //startProcess() //if updating 'process' flag is not enought
                         }else if(sysParameters.process && !newSysParameters.process) {
                             ProcessEnd.fecha = ActualTime.fecha - valDeltaT.fecha;
-//                            ProcessEnd.horas = ActualTime.horas - valDeltaT.horas;
-//                            ProcessEnd.minutos = ActualTime.minutos - valDeltaT.minutos;
                             ProcessEnd.segundos = ActualTime.segundos - valDeltaT.segundos;
-                            //endProcess (if updating 'process' flag is not enought)
+                            //endProcess() //if updating 'process' flag is not enought
                         }
-                        sysParameters = newSysParameters;
+                        sysParameters = newSysParameters;//Updates the Flags
                         if(sysParameters.syncTime) {
                             sysParameters.syncTime = 0;
                             updateTime();

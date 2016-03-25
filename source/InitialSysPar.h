@@ -15,7 +15,7 @@ void initVars() {
     
     valDeltaT.theTime = 0;//todo en 0
     deltaTdes.theTime = 0;//hr, sec, fecha = 0
-    deltaTdes.segundos = 900;//hr, sec, fecha = 0
+    deltaTdes.segundos = 60;//hr, sec, fecha = 0
     
     ActualTime.fecha = 99;
 //    ActualTime.horas = 12;
